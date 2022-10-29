@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Test
@@ -64,12 +65,13 @@ namespace Test
             {
                 // List các thread
                 List<Task> allTask = new List<Task>();
-                // Với mỗi thread, tải 1 range của file
-                foreach (Range range in ranges)
-                {
-                    // Thêm thread vào list
-                    allTask.Add(PartialDownload(url, range));
-                }
+                //Với mỗi thread, tải 1 range của file
+                //foreach (Range range in ranges)
+                //{
+                //    // Thêm thread vào list
+                //    allTask.Add(PartialDownload(url, range));
+                //}
+                Parallel.ForEach(ranges, range => allTask.Add(PartialDownload(url, range)));
                 // Chờ mọi thread tải xong
                 await Task.WhenAll(allTask);
                 // Tạo file đích
@@ -100,6 +102,7 @@ namespace Test
         // Hàm tải từng phần của 1 file
         private async Task PartialDownload(string url, Range range)
         {
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId,3}");
             var httpClient = new HttpClient();
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Get;
@@ -143,6 +146,7 @@ namespace Test
                 // to do: progress counter code
             }
             while (numberByteRead > 0);
+            Console.WriteLine("Done at: " + DateTime.Now);
             streamWrite.Close();
             return tempFilePath;
         }

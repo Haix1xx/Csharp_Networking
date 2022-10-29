@@ -65,24 +65,29 @@ namespace Test
             {
                 // List các thread
                 List<Task> allTask = new List<Task>();
-                //Với mỗi thread, tải 1 range của file
-                //foreach (Range range in ranges)
-                //{
-                //    // Thêm thread vào list
-                //    allTask.Add(PartialDownload(url, range));
-                //}
+                /*
+                    // Với mỗi thread, tải 1 range của file
+                    foreach (Range range in ranges)
+                    {
+                        // Thêm thread vào list
+                        allTask.Add(PartialDownload(url, range));
+                    }
+                */
+                // Chạy song song các thread
+                Console.WriteLine("Parallel thread");
                 Parallel.ForEach(ranges, range => allTask.Add(PartialDownload(url, range)));
                 // Chờ mọi thread tải xong
                 await Task.WhenAll(allTask);
                 // Tạo file đích
                 FileStream fileStream = new FileStream(filePath, FileMode.Append);
                 // Vòng lặp ghép file
+                Console.WriteLine("Join file");
                 foreach (var tempFile in dict.OrderBy(a => a.Key))
                 {
                     // Chỉ ghép 1 file tại 1 thời điểm
                     lock (fileStream)
                     {
-                        Console.WriteLine($"Key: {tempFile.Key}, Path: {tempFile.Value}");
+                        Console.WriteLine($"    Key: {tempFile.Key}, Path: {tempFile.Value}");
                         // Đọc file nhớ tạm
                         byte[] tempFileByte = File.ReadAllBytes(tempFile.Value);
                         // Ghi vào file đích
@@ -92,7 +97,6 @@ namespace Test
                     }
                 }
                 fileStream.Close();
-                Console.WriteLine("Parallel download done");
             }
             catch (Exception e)
             {
@@ -102,7 +106,7 @@ namespace Test
         // Hàm tải từng phần của 1 file
         private async Task PartialDownload(string url, Range range)
         {
-            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId,3}");
+            Console.WriteLine($"    Key {range.ChunkIndex} start, Thread ID: {Thread.CurrentThread.ManagedThreadId,3}");
             var httpClient = new HttpClient();
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Get;
@@ -117,7 +121,7 @@ namespace Test
             var stream = await responseMessage.Content.ReadAsStreamAsync();
             // Ghi nội dung vào 1 file nhớ tạm
             string tempFilePath = await createTempFile(stream);
-            Console.WriteLine(tempFilePath);
+            Console.WriteLine($"    Key {range.ChunkIndex} done: " + tempFilePath);
             // Gắn ChunkIndex & tempFilePath vào 1 Dictionary
             dict.TryAdd(range.ChunkIndex, tempFilePath);
             // Giải phóng
@@ -146,7 +150,7 @@ namespace Test
                 // to do: progress counter code
             }
             while (numberByteRead > 0);
-            Console.WriteLine("Done at: " + DateTime.Now);
+            //Console.WriteLine("Done at: " + DateTime.Now);
             streamWrite.Close();
             return tempFilePath;
         }

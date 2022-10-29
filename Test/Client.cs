@@ -12,14 +12,19 @@ namespace Test
     {
         public static async Task BeginDownload(string url, string fileName, int totalThread)
         {
+            var beginTime = DateTime.Now;
             // Lấy file length
             long fileLength = await GetFileLength(url);
+            Console.WriteLine($"File length: {fileLength} bytes");
             // Xác định range tải cho từng thread
             List<Range> ranges = CalculateRange(fileLength, totalThread);
-            ranges.ForEach(range => Console.WriteLine($"{range.ChunkIndex}, {range.Start}, {range.End}"));
+            Console.WriteLine("Calculate Range");
+            ranges.ForEach(range => Console.WriteLine($"    Key: {range.ChunkIndex}, Range: {range.Start} - {range.End}"));
             // Tạo instance & bắt đầu tải
             Download newDownload = new Download(url, fileName, ranges);
             await newDownload.ParallelDownload();
+            var endTime = DateTime.Now;
+            Console.WriteLine("Download done in: " + (endTime - beginTime));
         }
 
         // Gửi yêu cầu HTTP, nhận Header chứa kích cỡ file định tải
@@ -50,7 +55,7 @@ namespace Test
                 };
                 readRanges.Add(range);
             }
-            // Trường hợp hiếm: contentLength/totalThread < 0
+            // Kích cỡ của range cuối nhỏ hơn các range trước đó
             readRanges.Add(new Range
             {
                 Start = readRanges.Any() ? readRanges.Last().End + 1 : 0,

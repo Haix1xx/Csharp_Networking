@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTP", "HTTP\HTTP.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{99BF3B1D-DDB2-4FA1-BECA-D35FA878390D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThreadDownloader", "MultiThreadDownloader\MultiThreadDownloader.csproj", "{3AFBE293-A7CE-4462-BDF9-5546D35D109C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{99BF3B1D-DDB2-4FA1-BECA-D35FA878390D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99BF3B1D-DDB2-4FA1-BECA-D35FA878390D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99BF3B1D-DDB2-4FA1-BECA-D35FA878390D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AFBE293-A7CE-4462-BDF9-5546D35D109C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AFBE293-A7CE-4462-BDF9-5546D35D109C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AFBE293-A7CE-4462-BDF9-5546D35D109C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AFBE293-A7CE-4462-BDF9-5546D35D109C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

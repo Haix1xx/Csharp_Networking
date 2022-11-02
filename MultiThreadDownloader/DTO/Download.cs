@@ -3,13 +3,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Test
+namespace MultiThreadDownloader.DTO
 {
     public class Download
     {
@@ -26,41 +25,8 @@ namespace Test
             dict = new ConcurrentDictionary<int, string>();
         }
 
-        public async Task SingleStreamDownload(string url, string fileName)
-        {
-            var httpClient = new HttpClient();
-            try
-            {
-                // Gửi HTTP request, chờ phản hồi từ URL
-                var responseMessage = await httpClient.GetAsync(url);
-                // Đọc nội dung của HTTP response
-                var stream = await responseMessage.Content.ReadAsStreamAsync();
-                // Biến bộ nhớ đệm, khi đọc đủ kích thước bộ nhớ đệm thì sẽ ghi vào file, rồi tiếp tục đọc
-                const int SIZEBUFFER = 500;
-                var buffer = new byte[SIZEBUFFER];
-                //
-                int numberByte = 0;
-                // Xác định file ghi
-                var streamwrite = File.OpenWrite(fileName);
-                // Vòng lặp đọc & ghi
-                do
-                {
-                    // Đọc nội dung vào bộ nhớ đệm
-                    numberByte = await stream.ReadAsync(buffer, 0, SIZEBUFFER);
-                    // Ghi dữ liệu bộ nhớ đệm vào file
-                    await streamwrite.WriteAsync(buffer, 0, numberByte);
-                    Console.WriteLine("Downloading");
-                }
-                while (numberByte > 0);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-        
         public async Task ParallelDownload()
-        { 
+        {
             try
             {
                 // List các thread

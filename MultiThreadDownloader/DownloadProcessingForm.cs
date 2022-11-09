@@ -29,6 +29,7 @@ namespace MultiThreadDownloader
 
         private async void startButton_Click(object sender, EventArgs e)
         {
+            startButton.Enabled = false;
             await BLLDownloadProcessing.BeginDownload(this.download);
         }
     }

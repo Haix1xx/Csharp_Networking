@@ -65,14 +65,6 @@ namespace Test
             {
                 // List các thread
                 List<Task> allTask = new List<Task>();
-                /*
-                    // Với mỗi thread, tải 1 range của file
-                    foreach (Range range in ranges)
-                    {
-                        // Thêm thread vào list
-                        allTask.Add(PartialDownload(url, range));
-                    }
-                */
                 // Chạy song song các thread
                 Console.WriteLine("Parallel thread");
                 Parallel.ForEach(ranges, range => allTask.Add(PartialDownload(url, range)));

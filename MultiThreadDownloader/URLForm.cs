@@ -19,22 +19,26 @@ namespace MultiThreadDownloader
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            string url = "";
-            if (urlTextbox.Text != "")
+            string url = urlTextbox.Text;
+            if (url != "" && checkURL(url))
             {
                 this.Hide();
-                //can xu ly link truoc
-                url = urlTextbox.Text;
                 DownloadSettingForm form = new DownloadSettingForm(url);
-                form.Back = () => this.ShowDialog();
-                form.ShowDialog();
-                
-                //this.Visible = false;
+                form.Back = () => this.Show();
+                form.Show();
             }
             else
             {
-                //
+                MessageBox.Show("URL không hợp lệ");
             }    
+        }
+
+        private bool checkURL(string url)
+        {
+            if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                return true;
+            else
+                return false;
         }
     }
 }

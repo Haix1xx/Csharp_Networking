@@ -41,12 +41,12 @@
             this.fileNameTextbox = new System.Windows.Forms.TextBox();
             this.numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.multiThreadRadio = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
+            this.singleStreamRadio = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -191,6 +191,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Information";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(572, 42);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 25);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "bytes";
+            // 
             // cancelButton
             // 
             this.cancelButton.BackColor = System.Drawing.Color.Crimson;
@@ -217,7 +228,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.multiThreadRadio);
-            this.groupBox2.Controls.Add(this.radioButton1);
+            this.groupBox2.Controls.Add(this.singleStreamRadio);
             this.groupBox2.Controls.Add(this.numericUpDown);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(19, 318);
@@ -226,18 +237,6 @@
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Download option";
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.radioButton1.Location = new System.Drawing.Point(13, 25);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(274, 29);
-            this.radioButton1.TabIndex = 13;
-            this.radioButton1.Text = "Single Thread Download";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // multiThreadRadio
             // 
@@ -253,16 +252,17 @@
             this.multiThreadRadio.UseVisualStyleBackColor = true;
             this.multiThreadRadio.CheckedChanged += new System.EventHandler(this.multiThreadRadio_CheckedChanged);
             // 
-            // label2
+            // singleStreamRadio
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(572, 42);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 25);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "bytes";
+            this.singleStreamRadio.AutoSize = true;
+            this.singleStreamRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.singleStreamRadio.Location = new System.Drawing.Point(13, 25);
+            this.singleStreamRadio.Name = "singleStreamRadio";
+            this.singleStreamRadio.Size = new System.Drawing.Size(274, 29);
+            this.singleStreamRadio.TabIndex = 13;
+            this.singleStreamRadio.Text = "Single Stream Download";
+            this.singleStreamRadio.UseVisualStyleBackColor = true;
+            this.singleStreamRadio.CheckedChanged += new System.EventHandler(this.singleStreamRadio_CheckedChanged);
             // 
             // DownloadSettingForm
             // 
@@ -309,6 +309,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton multiThreadRadio;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton singleStreamRadio;
     }
 }

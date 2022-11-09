@@ -55,6 +55,13 @@ namespace MultiThreadDownloader.DTO
             }
             catch (Exception e)
             {
+                // Dọn file nhớ tạm
+                foreach (var tempFile in dict)
+                {
+                    File.Delete(tempFile.Value);
+                }
+                // Ném thông báo lỗi
+                throw new Exception("Download failed");
             }
         }
         // Hàm tải từng phần của 1 file

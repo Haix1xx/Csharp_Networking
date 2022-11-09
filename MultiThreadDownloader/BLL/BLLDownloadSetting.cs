@@ -11,16 +11,23 @@ namespace MultiThreadDownloader.BLL
     {
         public static async Task<long> GetFileLength(string url)
         {
-            var httpClient = new HttpClient();
-            // Chỉ rõ nội dung của HTTP request: gửi về chỉ phần Header, trong đó chứa kích cỡ file cần tải
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Head;
-            request.RequestUri = new Uri(url);
-            // Gửi HTTP request
-            var response = await httpClient.SendAsync(request);
-            // Lấy kích cỡ file, nằm ở phần Content-Length
-            var result = response.Content.Headers.GetValues("Content-Length");
-            return long.Parse(result.FirstOrDefault());
+            try
+            {
+                var httpClient = new HttpClient();
+                // Chỉ rõ nội dung của HTTP request: gửi về chỉ phần Header, trong đó chứa kích cỡ file cần tải
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Head;
+                request.RequestUri = new Uri(url);
+                // Gửi HTTP request
+                var response = await httpClient.SendAsync(request);
+                // Lấy kích cỡ file, nằm ở phần Content-Length
+                var result = response.Content.Headers.GetValues("Content-Length");
+                return long.Parse(result.FirstOrDefault());
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Failed to get file length");
+            }
         }
         public static List<Range> CalculateRange(long contentLength, int totalThread)
         {

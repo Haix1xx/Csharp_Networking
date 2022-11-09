@@ -1,6 +1,6 @@
 ﻿namespace MultiThreadDownloader
 {
-    partial class DownloadProcessingForm
+    partial class MultiThreadForm
     {
         /// <summary>
         /// Required designer variable.
@@ -99,7 +99,7 @@
             this.urlTextbox.TabIndex = 7;
             this.urlTextbox.Text = "";
             // 
-            // DownloadProcessingForm
+            // MultiThreadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -111,8 +111,8 @@
             this.Controls.Add(this.urlLabel);
             this.Controls.Add(this.filePathLabel);
             this.Controls.Add(this.startButton);
-            this.Name = "DownloadProcessingForm";
-            this.Text = "DownloadProcessingForm";
+            this.Name = "MultiThreadForm";
+            this.Text = "MultiThreadForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 

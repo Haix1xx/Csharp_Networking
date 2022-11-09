@@ -93,33 +93,34 @@ namespace Test
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
             }
         }
         // Hàm tải từng phần của 1 file
         private async Task PartialDownload(string url, Range range)
         {
-            Console.WriteLine($"    Key {range.ChunkIndex} start, Thread ID: {Thread.CurrentThread.ManagedThreadId,3}");
-            var httpClient = new HttpClient();
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Get;
-            request.RequestUri = new Uri(url);
-            // Xác định phần nội dung cần tải, từ vị trí start đến vị trí end
-            if (request.Headers.Contains("Range"))
-                request.Headers.Remove("Range");
-            request.Headers.Add("Range", $"bytes={range.Start}-{range.End}");
-            // Gửi HTTP request, chờ phản hồi từ URL
-            var responseMessage = await httpClient.SendAsync(request);
-            // Đọc nội dung của HTTP response
-            var stream = await responseMessage.Content.ReadAsStreamAsync();
-            // Ghi nội dung vào 1 file nhớ tạm
-            string tempFilePath = await createTempFile(stream);
-            Console.WriteLine($"    Key {range.ChunkIndex} done: " + tempFilePath);
-            // Gắn ChunkIndex & tempFilePath vào 1 Dictionary
-            dict.TryAdd(range.ChunkIndex, tempFilePath);
-            // Giải phóng
-            stream.Close();
-            request.Dispose();
-            httpClient.Dispose();
+                Console.WriteLine($"    Key {range.ChunkIndex} start, Thread ID: {Thread.CurrentThread.ManagedThreadId,3}");
+                var httpClient = new HttpClient();
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Get;
+                request.RequestUri = new Uri(url);
+                // Xác định phần nội dung cần tải, từ vị trí start đến vị trí end
+                if (request.Headers.Contains("Range"))
+                    request.Headers.Remove("Range");
+                request.Headers.Add("Range", $"bytes={range.Start}-{range.End}");
+                // Gửi HTTP request, chờ phản hồi từ URL
+                var responseMessage = await httpClient.SendAsync(request);
+                // Đọc nội dung của HTTP response
+                var stream = await responseMessage.Content.ReadAsStreamAsync();
+                // Ghi nội dung vào 1 file nhớ tạm
+                string tempFilePath = await createTempFile(stream);
+                Console.WriteLine($"    Key {range.ChunkIndex} done: " + tempFilePath);
+                // Gắn ChunkIndex & tempFilePath vào 1 Dictionary
+                dict.TryAdd(range.ChunkIndex, tempFilePath);
+                // Giải phóng
+                stream.Close();
+                request.Dispose();
+                httpClient.Dispose();
         }
         private static async Task<string> createTempFile(Stream data)
         {

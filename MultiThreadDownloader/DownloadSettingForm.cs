@@ -40,14 +40,22 @@ namespace MultiThreadDownloader
             confirmButton.Enabled = false;
             numericUpDown.Value = 4;
             urlTextbox.Text = this.url;
-            this.fileSize = await BLLDownloadSetting.GetFileLength(this.url);
-            fileSizeTextbox.Text = fileSize.ToString();
-            confirmButton.Enabled = true;
+            fileSizeTextbox.Text = "Getting file length...";
+            try
+            {
+                this.fileSize = await BLLDownloadSetting.GetFileLength(this.url);
+                fileSizeTextbox.Text = fileSize.ToString();
+                confirmButton.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                fileSizeTextbox.Text = ex.Message;
+            }
         }
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            string filePath = savePathTextbox.Text; // + "\\" + fileNameTextbox.Text;
+            string filePath = savePathTextbox.Text;
             if (Directory.Exists(filePath))
             {
                 if (fileNameTextbox.Text != "")
@@ -56,10 +64,13 @@ namespace MultiThreadDownloader
                     int totalThread = Convert.ToInt32(numericUpDown.Value);
                     List<Range> readRanges = BLLDownloadSetting.CalculateRange(fileSize, totalThread);
 
-                    Download download = new Download(url, filePath, readRanges);
-                    DownloadProcessingForm form = new DownloadProcessingForm(download);
-                    this.Hide();
-                    form.ShowDialog();
+                    if (multiThreadRadio.Checked)
+                    {
+                        Download download = new Download(url, filePath, readRanges);
+                        MultiThreadForm form = new MultiThreadForm(download);
+                        this.Hide();
+                        form.ShowDialog();
+                    }
                 }
                 else
                 {
@@ -81,7 +92,7 @@ namespace MultiThreadDownloader
 
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void singleStreamRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (numericUpDown.Enabled == true)
             {

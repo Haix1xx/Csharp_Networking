@@ -11,14 +11,14 @@ using MultiThreadDownloader.DTO;
 using MultiThreadDownloader.BLL;
 namespace MultiThreadDownloader
 {
-    public partial class DownloadProcessingForm : Form
+    public partial class MultiThreadForm : Form
     {
         private Download download;
-        public DownloadProcessingForm()
+        public MultiThreadForm()
         {
             InitializeComponent();
         }
-        public DownloadProcessingForm(Download download)
+        public MultiThreadForm(Download download)
         {
             InitializeComponent();
             this.download = download;
@@ -29,8 +29,16 @@ namespace MultiThreadDownloader
 
         private async void startButton_Click(object sender, EventArgs e)
         {
-            startButton.Enabled = false;
-            await BLLDownloadProcessing.BeginDownload(this.download);
+            try
+            {
+                startButton.Enabled = false;
+                await BLLDownloadProcessing.BeginDownload(this.download);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                startButton.Enabled = true;
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace MultiThreadDownloader.BLL
         {
             var beginTime = DateTime.Now;
             // Tạo instance & bắt đầu tải
-            await download.ParallelDownload().ConfigureAwait(false);
+            await download.ParallelDownload();
             var endTime = DateTime.Now;
             MessageBox.Show("Download done in: " + (endTime - beginTime));
         }

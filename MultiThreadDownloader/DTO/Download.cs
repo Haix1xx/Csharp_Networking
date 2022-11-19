@@ -17,6 +17,7 @@ namespace MultiThreadDownloader.DTO
         public string url { get; set; }
         public string filePath { get; set; }
         public List<Range> ranges { get; set; }
+        private HttpClient httpClient = new HttpClient();
         public IProgress<int> progress { get; set; }
         // Dictionary chứa các file nhớ tạm
         private ConcurrentDictionary<int, string> dict;
@@ -39,7 +40,7 @@ namespace MultiThreadDownloader.DTO
                 // List các thread
                 List<Task> allTask = new List<Task>();
                 // Chạy song song các thread
-                Parallel.ForEach(ranges, range => 
+                Parallel.ForEach(ranges, new ParallelOptions { MaxDegreeOfParallelism = -1}, range => 
                 {
                     Task task = PartialDownload(url, range);
                     task.ConfigureAwait(false);
@@ -84,7 +85,7 @@ namespace MultiThreadDownloader.DTO
         // Hàm tải từng phần của 1 file
         private async Task PartialDownload(string url, Range range)
         {
-            var httpClient = new HttpClient();
+            //var httpClient = new HttpClient();
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Get;
             request.RequestUri = new Uri(url);
@@ -103,7 +104,8 @@ namespace MultiThreadDownloader.DTO
             // Giải phóng
             stream.Close();
             request.Dispose();
-            httpClient.Dispose();
+            responseMessage.Dispose();
+            //httpClient.Dispose();
         }
         private async Task<string> createTempFile(Stream data)
         {

@@ -32,14 +32,19 @@ namespace MultiThreadDownloader.DTO
             dict = new ConcurrentDictionary<int, string>();
         }
 
-        public async void ParallelDownload()
+        public async Task ParallelDownload()
         {
             try
             {
                 // List các thread
                 List<Task> allTask = new List<Task>();
                 // Chạy song song các thread
-                Parallel.ForEach(ranges, range => allTask.Add(PartialDownload(url, range)));
+                Parallel.ForEach(ranges, range => 
+                {
+                    Task task = PartialDownload(url, range);
+                    task.ConfigureAwait(false);
+                    allTask.Add(task); 
+                });
                 // Chờ mọi thread tải xong
                 await Task.WhenAll(allTask);
                 // Tạo file đích
@@ -105,7 +110,7 @@ namespace MultiThreadDownloader.DTO
             // Tạo file nhớ tạm
             var tempFilePath = Path.GetTempFileName();
             // Biến bộ nhớ đệm, khi đọc đủ kích thước bộ nhớ đệm thì sẽ ghi vào file, rồi tiếp tục đọc
-            const int SIZEBUFFER = 1024;
+            const int SIZEBUFFER = 8192;
             var buffer = new byte[SIZEBUFFER];
             // Biến đếm byte đã đọc
             int numberByteRead;

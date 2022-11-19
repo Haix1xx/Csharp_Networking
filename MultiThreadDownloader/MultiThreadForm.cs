@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MultiThreadDownloader.DTO;
 using MultiThreadDownloader.BLL;
+using System.Threading;
+
 namespace MultiThreadDownloader
 {
     public partial class MultiThreadForm : Form
@@ -16,8 +18,9 @@ namespace MultiThreadDownloader
         private Download download;
         public MultiThreadForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
+
         public MultiThreadForm(Download download)
         {
             InitializeComponent();
@@ -25,13 +28,30 @@ namespace MultiThreadDownloader
             this.urlTextbox.Text = download.url;
             this.filePathTextbox.Text = download.filePath;
             this.sizeTextbox.Text = download.ranges.Last().End.ToString();
+            progressBar.Maximum = (int)download.ranges.Last().End;
+            var progress = new Progress<int>(ReportProgress);
+            this.download.progress = progress;
         }
-
+        public void ReportProgress(int value)
+        {
+            var currentValue = progressBar.Value + value;
+            if (currentValue <= progressBar.Maximum)
+            {
+                progressBar.Value = currentValue;
+                //textLabel.Text = currentValue.ToString();
+            }
+            else
+            {
+                progressBar.Value = progressBar.Maximum;
+                //textLabel.Text = progressBar1.Maximum.ToString();
+            }    
+            
+        }
         private async void startButton_Click(object sender, EventArgs e)
         {
             try
             {
-                startButton.Enabled = false;
+                startButton.Enabled = false;    
                 await BLLDownloadProcessing.BeginDownload(this.download);
             }
             catch (Exception ex)
@@ -40,5 +60,6 @@ namespace MultiThreadDownloader
                 startButton.Enabled = true;
             }
         }
+
     }
 }

@@ -35,11 +35,12 @@
             this.filePathTextbox = new System.Windows.Forms.TextBox();
             this.sizeTextbox = new System.Windows.Forms.TextBox();
             this.urlTextbox = new System.Windows.Forms.RichTextBox();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(369, 415);
+            this.startButton.Location = new System.Drawing.Point(370, 271);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
             this.startButton.TabIndex = 0;
@@ -99,11 +100,19 @@
             this.urlTextbox.TabIndex = 7;
             this.urlTextbox.Text = "";
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(109, 209);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(582, 23);
+            this.progressBar.TabIndex = 8;
+            // 
             // MultiThreadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 328);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.urlTextbox);
             this.Controls.Add(this.sizeTextbox);
             this.Controls.Add(this.filePathTextbox);
@@ -127,5 +136,6 @@
         private System.Windows.Forms.TextBox filePathTextbox;
         private System.Windows.Forms.TextBox sizeTextbox;
         private System.Windows.Forms.RichTextBox urlTextbox;
+        internal System.Windows.Forms.ProgressBar progressBar;
     }
 }

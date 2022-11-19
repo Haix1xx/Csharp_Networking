@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MultiThreadDownloader.DTO
 {
@@ -15,8 +17,13 @@ namespace MultiThreadDownloader.DTO
         public string url { get; set; }
         public string filePath { get; set; }
         public List<Range> ranges { get; set; }
+        public IProgress<int> progress { get; set; }
         // Dictionary chứa các file nhớ tạm
         private ConcurrentDictionary<int, string> dict;
+        public Download()
+        {
+            
+        }
         public Download(string url, string filePath, List<Range> ranges)
         {
             this.url = url;
@@ -25,7 +32,7 @@ namespace MultiThreadDownloader.DTO
             dict = new ConcurrentDictionary<int, string>();
         }
 
-        public async Task ParallelDownload()
+        public async void ParallelDownload()
         {
             try
             {
@@ -53,6 +60,10 @@ namespace MultiThreadDownloader.DTO
                 }
                 fileStream.Close();
             }
+            catch (TaskCanceledException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
             catch (Exception e)
             {
                 // Dọn file nhớ tạm
@@ -61,8 +72,9 @@ namespace MultiThreadDownloader.DTO
                     File.Delete(tempFile.Value);
                 }
                 // Ném thông báo lỗi
-                throw new Exception("Download failed");
-            }
+                //throw new Exception("Download failed");
+                throw e;
+             }
         }
         // Hàm tải từng phần của 1 file
         private async Task PartialDownload(string url, Range range)
@@ -88,7 +100,7 @@ namespace MultiThreadDownloader.DTO
             request.Dispose();
             httpClient.Dispose();
         }
-        private static async Task<string> createTempFile(Stream data)
+        private async Task<string> createTempFile(Stream data)
         {
             // Tạo file nhớ tạm
             var tempFilePath = Path.GetTempFileName();
@@ -96,7 +108,7 @@ namespace MultiThreadDownloader.DTO
             const int SIZEBUFFER = 1024;
             var buffer = new byte[SIZEBUFFER];
             // Biến đếm byte đã đọc
-            int numberByteRead = 0;
+            int numberByteRead;
             // Xác định file ghi
             var streamWrite = File.OpenWrite(tempFilePath);
             // Vòng lặp đọc & ghi
@@ -104,9 +116,13 @@ namespace MultiThreadDownloader.DTO
             {
                 // Đọc nội dung vào bộ nhớ đệm
                 numberByteRead = await data.ReadAsync(buffer, 0, SIZEBUFFER);
-                // Ghi dữ liệu bộ nhớ đệm vào file
-                await streamWrite.WriteAsync(buffer, 0, numberByteRead);
-                // to do: progress counter code
+                if (numberByteRead > 0)
+                {
+                    // Ghi dữ liệu bộ nhớ đệm vào file
+                    await streamWrite.WriteAsync(buffer, 0, numberByteRead);
+                    // to do: progress counter code
+                    progress?.Report(numberByteRead);
+                }                
             }
             while (numberByteRead > 0);
             streamWrite.Close();

@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="BLL\BLLDownloadProcessing.cs" />
     <Compile Include="BLL\BLLDownloadSetting.cs" />
+    <Compile Include="DTO\MultiThreadDownload.cs" />
+    <Compile Include="DTO\SingleStreamDownload.cs" />
     <Compile Include="MultiThreadForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +64,12 @@
     </Compile>
     <Compile Include="DTO\Download.cs" />
     <Compile Include="DTO\Range.cs" />
+    <Compile Include="SingleStreamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SingleStreamForm.Designer.cs">
+      <DependentUpon>SingleStreamForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="URLForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadSettingForm.resx">
       <DependentUpon>DownloadSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SingleStreamForm.resx">
+      <DependentUpon>SingleStreamForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="URLForm.resx">
       <DependentUpon>URLForm.cs</DependentUpon>

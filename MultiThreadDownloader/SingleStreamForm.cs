@@ -13,26 +13,22 @@ using System.Threading;
 
 namespace MultiThreadDownloader
 {
-    public partial class MultiThreadForm : Form
+    public partial class SingleStreamForm : Form
     {
-        private MultiThreadDownload download;
-        public MultiThreadForm()
-        {
-            InitializeComponent();            
-        }
+        private SingleStreamDownload download;
 
-        public MultiThreadForm(Download download)
+        public SingleStreamForm(Download download)
         {
             InitializeComponent();
-            this.download = download as MultiThreadDownload;
+            this.download = download as SingleStreamDownload;
             InitGUI();
         }
         public void InitGUI()
         {
             this.urlTextbox.Text = download.url;
             this.filePathTextbox.Text = download.filePath;
-            this.sizeTextbox.Text = download.ranges.Last().End.ToString();
-            progressBar.Maximum = (int)download.ranges.Last().End;
+            this.sizeTextbox.Text = download.fileLength.ToString();
+            progressBar.Maximum = (int)download.fileLength;
             var progress = new Progress<int>(ReportProgress);
             this.download.progress = progress;
         }
@@ -48,8 +44,8 @@ namespace MultiThreadDownloader
             {
                 progressBar.Value = progressBar.Maximum;
                 //textLabel.Text = progressBar1.Maximum.ToString();
-            }    
-            
+            }
+
         }
         private async void startButton_Click(object sender, EventArgs e)
         {

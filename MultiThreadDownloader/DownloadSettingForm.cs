@@ -61,16 +61,23 @@ namespace MultiThreadDownloader
                 if (fileNameTextbox.Text != "")
                 {
                     filePath += "\\" + fileNameTextbox.Text;
-                    int totalThread = Convert.ToInt32(numericUpDown.Value);
-                    List<Range> readRanges = BLLDownloadSetting.CalculateRange(fileSize, totalThread);
 
                     if (multiThreadRadio.Checked)
                     {
-                        Download download = new Download(url, filePath, readRanges);
+                        int totalThread = Convert.ToInt32(numericUpDown.Value);
+                        List<Range> readRanges = BLLDownloadSetting.CalculateRange(fileSize, totalThread);
+                        Download download = new MultiThreadDownload(url, filePath, readRanges);
                         MultiThreadForm form = new MultiThreadForm(download);
                         this.Hide();
                         form.ShowDialog();
                     }
+                    else if (singleStreamRadio.Checked)
+                    {
+                        Download download = new SingleStreamDownload(url, filePath, fileSize);
+                        SingleStreamForm form = new SingleStreamForm(download);
+                        this.Hide();
+                        form.ShowDialog();
+                    }    
                 }
                 else
                 {

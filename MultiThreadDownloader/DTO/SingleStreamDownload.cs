@@ -26,29 +26,33 @@ namespace MultiThreadDownloader.DTO
             try
             {
                 // Gửi HTTP request, chờ phản hồi từ URL
-                var responseMessage = await httpClient.GetAsync(url);
+                var responseMessage = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
                 // Đọc nội dung của HTTP response
                 var stream = await responseMessage.Content.ReadAsStreamAsync();
                 // Biến bộ nhớ đệm, khi đọc đủ kích thước bộ nhớ đệm thì sẽ ghi vào file, rồi tiếp tục đọc
-                const int SIZEBUFFER = 500;
+                const int SIZEBUFFER = 4096;
                 var buffer = new byte[SIZEBUFFER];
                 //
                 int numberByte = 0;
                 // Xác định file ghi
-                var streamwrite = File.OpenWrite(filePath);
+                var streamWrite = File.OpenWrite(filePath);
                 // Vòng lặp đọc & ghi
                 do
                 {
                     // Đọc nội dung vào bộ nhớ đệm
                     numberByte = await stream.ReadAsync(buffer, 0, SIZEBUFFER);
                     // Ghi dữ liệu bộ nhớ đệm vào file
-                    await streamwrite.WriteAsync(buffer, 0, numberByte);
+                    await streamWrite.WriteAsync(buffer, 0, numberByte);
                     progress?.Report(numberByte);
                 }
                 while (numberByte > 0);
+                streamWrite.Close();
             }
-            catch (Exception e)
+            catch (Exception)
             {
+                File.Delete(filePath);
+                // Ném thông báo lỗi
+                throw new Exception("Download failed");
             }
         }
     }

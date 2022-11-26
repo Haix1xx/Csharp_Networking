@@ -67,7 +67,7 @@ namespace Test
                 List<Task> allTask = new List<Task>();
                 // Chạy song song các thread
                 Console.WriteLine("Parallel thread");
-                Parallel.ForEach(ranges, range => allTask.Add(PartialDownload(url, range)));
+                Parallel.ForEach(ranges, new ParallelOptions { MaxDegreeOfParallelism = -1 }, range => allTask.Add(PartialDownload(url, range)));
                 // Chờ mọi thread tải xong
                 await Task.WhenAll(allTask);
                 // Tạo file đích

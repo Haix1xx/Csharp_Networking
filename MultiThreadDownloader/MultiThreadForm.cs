@@ -56,6 +56,7 @@ namespace MultiThreadDownloader
             try
             {
                 startButton.Enabled = false;
+                progressBar.Value = 0;
                 await BLLDownloadProcessing.BeginDownload(this.download);
             }
             catch (Exception ex)

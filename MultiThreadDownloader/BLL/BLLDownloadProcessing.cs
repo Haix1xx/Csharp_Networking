@@ -13,7 +13,6 @@ namespace MultiThreadDownloader.BLL
         public static async Task BeginDownload(Download download)
         {
             var beginTime = DateTime.Now;
-            // Tạo instance & bắt đầu tải
             await download.StartDownload();
             var endTime = DateTime.Now;
             MessageBox.Show("Download done in: " + (endTime - beginTime));

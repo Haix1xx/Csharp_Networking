@@ -36,17 +36,19 @@
             // urlLabel
             // 
             this.urlLabel.AutoSize = true;
-            this.urlLabel.Location = new System.Drawing.Point(12, 20);
+            this.urlLabel.Location = new System.Drawing.Point(18, 31);
+            this.urlLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.urlLabel.Name = "urlLabel";
-            this.urlLabel.Size = new System.Drawing.Size(32, 13);
+            this.urlLabel.Size = new System.Drawing.Size(46, 20);
             this.urlLabel.TabIndex = 1;
             this.urlLabel.Text = "URL:";
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(335, 142);
+            this.confirmButton.Location = new System.Drawing.Point(502, 218);
+            this.confirmButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(75, 23);
+            this.confirmButton.Size = new System.Drawing.Size(112, 35);
             this.confirmButton.TabIndex = 2;
             this.confirmButton.Text = "Confirm";
             this.confirmButton.UseVisualStyleBackColor = true;
@@ -54,22 +56,24 @@
             // 
             // urlTextbox
             // 
-            this.urlTextbox.Location = new System.Drawing.Point(50, 20);
+            this.urlTextbox.Location = new System.Drawing.Point(75, 31);
+            this.urlTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.urlTextbox.Name = "urlTextbox";
-            this.urlTextbox.Size = new System.Drawing.Size(360, 84);
+            this.urlTextbox.Size = new System.Drawing.Size(538, 127);
             this.urlTextbox.TabIndex = 3;
             this.urlTextbox.Text = "";
             // 
             // URLForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 194);
+            this.ClientSize = new System.Drawing.Size(680, 298);
             this.Controls.Add(this.urlTextbox);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.urlLabel);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "URLForm";
-            this.Text = "Form1";
+            this.Text = "URLForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 

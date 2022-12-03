@@ -25,6 +25,7 @@ namespace MultiThreadDownloader
                 this.Hide();
                 DownloadSettingForm form = new DownloadSettingForm(url);
                 form.Back = () => this.Show();
+                form.CloseForm = () => DisposeForm();
                 form.Show();
             }
             else
@@ -32,13 +33,14 @@ namespace MultiThreadDownloader
                 MessageBox.Show("URL không hợp lệ");
             }    
         }
-
+        public void DisposeForm()
+        {
+            this.Dispose();
+            this.Close();
+        }
         private bool checkURL(string url)
         {
-            if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
-                return true;
-            else
-                return false;
+            return Uri.IsWellFormedUriString(url, UriKind.Absolute);
         }
     }
 }

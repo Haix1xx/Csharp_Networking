@@ -10,8 +10,9 @@ namespace MultiThreadDownloader
     {
         private string url;
         private long fileSize;
-        public delegate void BackForm();
-        public BackForm Back { get; set; }
+        public delegate void InvokeForm();
+        public InvokeForm Back { get; set; }
+        public InvokeForm CloseForm { get; set; }
         public DownloadSettingForm()
         {
             InitializeComponent();
@@ -32,6 +33,8 @@ namespace MultiThreadDownloader
             {
                 this.fileSize = await BLLDownloadSetting.GetFileLength(this.url);
                 fileSizeTextbox.Text = fileSize.ToString();
+                fileSizeTextbox.Text = BLLDownloadSetting.FileSizeToString(fileSize);
+
                 confirmButton.Enabled = true;
             }
             catch (Exception ex)
@@ -76,6 +79,8 @@ namespace MultiThreadDownloader
                         List<Range> readRanges = BLLDownloadSetting.CalculateRange(fileSize, totalThread);
                         Download download = new MultiThreadDownload(url, filePath, readRanges);
                         MultiThreadForm form = new MultiThreadForm(download);
+                        form.BackForm = () => this.Show();
+                        form.CloseForm = () => DisposeAllForm();
                         this.Hide();
                         form.ShowDialog();
                     }
@@ -100,6 +105,13 @@ namespace MultiThreadDownloader
         private void cancelButton_Click(object sender, EventArgs e)
         {
             Back?.Invoke();
+            this.Close();
+        }
+
+        public void DisposeAllForm()
+        {
+            CloseForm?.Invoke();
+            this.Dispose();
             this.Close();
         }
     }

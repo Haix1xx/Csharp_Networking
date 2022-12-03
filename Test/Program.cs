@@ -16,7 +16,11 @@ namespace Test
             string test = "https://test2.fibertelecom.it/100MB.zip";
             string pdf = "https://ww1.microchip.com/downloads/en/devicedoc/atmel-7766-8-bit-avr-atmega16u4-32u4_datasheet.pdf";
             // Chỉ rõ url, filePath & số thread
+<<<<<<< Updated upstream
             await Client.BeginDownload(pdf, "C:\\Users\\PC\\Desktop\\down\\abc.pdf", 8);
+=======
+            await Client.BeginDownload(test, "C:\\Users\\PC\\Desktop\\down\\abc.zip", 4);
+>>>>>>> Stashed changes
             Console.ReadKey();
         }
     }

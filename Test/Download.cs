@@ -26,13 +26,14 @@ namespace Test
             dict = new ConcurrentDictionary<int, string>();
         }
 
-        public async Task SingleStreamDownload(string url, string fileName)
+        public async Task SingleStreamDownload()
         {
             var httpClient = new HttpClient();
             try
             {
+                DateTime start = DateTime.Now;
                 // Gửi HTTP request, chờ phản hồi từ URL
-                var responseMessage = await httpClient.GetAsync(url);
+                var responseMessage = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
                 // Đọc nội dung của HTTP response
                 var stream = await responseMessage.Content.ReadAsStreamAsync();
                 // Biến bộ nhớ đệm, khi đọc đủ kích thước bộ nhớ đệm thì sẽ ghi vào file, rồi tiếp tục đọc
@@ -41,17 +42,25 @@ namespace Test
                 //
                 int numberByte = 0;
                 // Xác định file ghi
-                var streamwrite = File.OpenWrite(fileName);
+                var streamwrite = File.OpenWrite(filePath);
                 // Vòng lặp đọc & ghi
+
+                long totalRead = 0, maxspeed = 0;
                 do
                 {
                     // Đọc nội dung vào bộ nhớ đệm
                     numberByte = await stream.ReadAsync(buffer, 0, SIZEBUFFER);
                     // Ghi dữ liệu bộ nhớ đệm vào file
                     await streamwrite.WriteAsync(buffer, 0, numberByte);
-                    Console.WriteLine("Downloading");
+                    TimeSpan timeRead = DateTime.Now - start;
+                    totalRead += numberByte;
+                    long speed = (long)(totalRead / timeRead.TotalSeconds);
+                    Console.WriteLine("Downloading, speed: " + speed);
+                    if (speed > maxspeed)
+                        maxspeed = speed;
                 }
                 while (numberByte > 0);
+                Console.WriteLine("Max speed: " + maxspeed);
             }
             catch (Exception e)
             {
@@ -109,7 +118,7 @@ namespace Test
                     request.Headers.Remove("Range");
                 request.Headers.Add("Range", $"bytes={range.Start}-{range.End}");
                 // Gửi HTTP request, chờ phản hồi từ URL
-                var responseMessage = await httpClient.SendAsync(request);
+                var responseMessage = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
                 // Đọc nội dung của HTTP response
                 var stream = await responseMessage.Content.ReadAsStreamAsync();
                 // Ghi nội dung vào 1 file nhớ tạm
@@ -124,26 +133,32 @@ namespace Test
         }
         private static async Task<string> createTempFile(Stream data)
         {
+            DateTime start = DateTime.Now;
             // Tạo file nhớ tạm
             var tempFilePath = Path.GetTempFileName();
             // Biến bộ nhớ đệm, khi đọc đủ kích thước bộ nhớ đệm thì sẽ ghi vào file, rồi tiếp tục đọc
-            const int SIZEBUFFER = 1024;
+            const int SIZEBUFFER = 4096;
             var buffer = new byte[SIZEBUFFER];
             // Biến đếm byte đã đọc
             int numberByteRead = 0;
             // Xác định file ghi
             var streamWrite = File.OpenWrite(tempFilePath);
             // Vòng lặp đọc & ghi
+            long totalRead = 0, maxspeed = 0;
             do
             {
                 // Đọc nội dung vào bộ nhớ đệm
                 numberByteRead = await data.ReadAsync(buffer, 0, SIZEBUFFER);
                 // Ghi dữ liệu bộ nhớ đệm vào file
                 await streamWrite.WriteAsync(buffer, 0, numberByteRead);
-                // to do: progress counter code
+                TimeSpan timeRead = DateTime.Now - start;
+                totalRead += numberByteRead;
+                long speed = (long)(totalRead / timeRead.TotalSeconds);
+                if (speed > maxspeed)
+                    maxspeed = speed;
             }
             while (numberByteRead > 0);
-            //Console.WriteLine("Done at: " + DateTime.Now);
+            Console.WriteLine("Max speed: " + maxspeed);
             streamWrite.Close();
             return tempFilePath;
         }

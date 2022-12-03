@@ -22,7 +22,8 @@ namespace Test
             ranges.ForEach(range => Console.WriteLine($"    Key: {range.ChunkIndex}, Range: {range.Start} - {range.End}"));
             // Tạo instance & bắt đầu tải
             Download newDownload = new Download(url, fileName, ranges);
-            await newDownload.ParallelDownload();
+            //await newDownload.ParallelDownload();
+            await newDownload.SingleStreamDownload();
             var endTime = DateTime.Now;
             Console.WriteLine("Download done in: " + (endTime - beginTime));
         }

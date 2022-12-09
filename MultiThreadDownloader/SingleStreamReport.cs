@@ -23,9 +23,9 @@ namespace MultiThreadDownloader
         {
             this.isComplete.Text = report.isComplete.ToString();
             this.totalTime.Text = report.totalTime.Hours.ToString() + "h " + report.totalTime.Minutes.ToString() + "m " + report.totalTime.Seconds.ToString() + "s";
-            this.downloadedSize.Text = report.downloadedSize.ToString();
-            this.maxSpeed.Text = report.maxSpeed.ToString();
-            this.averageSpeed.Text = report.averageSpeed.ToString();
+            this.downloadedSize.Text = report.downloadedSize.ToString() + " bytes";
+            this.maxSpeed.Text = report.maxSpeed.ToString() + " bit/s";
+            this.averageSpeed.Text = report.averageSpeed.ToString() + " bit/s";
         }
     }
 }

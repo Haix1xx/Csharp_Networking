@@ -18,7 +18,7 @@ namespace MultiThreadDownloader.DTO
         { 
             get
             {
-                return downloadedSize/(endTime-startTime).Seconds;
+                return (long)(downloadedSize*8/(endTime-startTime).TotalSeconds);
             }
             private set { } 
         }

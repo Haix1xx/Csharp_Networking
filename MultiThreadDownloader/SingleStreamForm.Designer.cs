@@ -36,6 +36,7 @@
             this.urlLabel = new System.Windows.Forms.Label();
             this.filePathLabel = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
+            this.detailButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBar
@@ -107,6 +108,18 @@
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
+            // detailButton
+            // 
+            this.detailButton.Enabled = false;
+            this.detailButton.Location = new System.Drawing.Point(381, 324);
+            this.detailButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.detailButton.Name = "detailButton";
+            this.detailButton.Size = new System.Drawing.Size(112, 35);
+            this.detailButton.TabIndex = 9;
+            this.detailButton.Text = "Detail";
+            this.detailButton.UseVisualStyleBackColor = true;
+            this.detailButton.Click += new System.EventHandler(this.detailButton_Click);
+            // 
             // SingleStreamForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -119,6 +132,7 @@
             this.Controls.Add(this.fileSizeLabel);
             this.Controls.Add(this.urlLabel);
             this.Controls.Add(this.filePathLabel);
+            this.Controls.Add(this.detailButton);
             this.Controls.Add(this.startButton);
             this.Name = "SingleStreamForm";
             this.Text = "SingleStreamForm";
@@ -138,5 +152,6 @@
         private System.Windows.Forms.Label urlLabel;
         private System.Windows.Forms.Label filePathLabel;
         private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button detailButton;
     }
 }

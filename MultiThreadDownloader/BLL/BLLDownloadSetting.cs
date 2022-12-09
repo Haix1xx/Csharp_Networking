@@ -51,37 +51,5 @@ namespace MultiThreadDownloader.BLL
             });
             return readRanges;
         }
-
-        public static string FileSizeToString(long fileSize)
-        {
-            string unit = "";
-            double result;
-            if (fileSize >= Math.Pow(2,40))
-            {
-                result = (double)fileSize / Math.Pow(2, 40);
-                unit = "TB";
-            }  
-            else if(fileSize >= Math.Pow(2, 30))
-            {
-                result = (double)fileSize / Math.Pow(2, 30);
-                unit = "GB";
-            }
-            else if (fileSize >= Math.Pow(2, 20))
-            {
-                result = (double)fileSize / Math.Pow(2, 20);
-                unit = "MB";
-            }
-            else if(fileSize >= Math.Pow(2, 10))
-            {
-                result = (double)fileSize / Math.Pow(2, 10);
-                unit = "kB";
-            }    
-            else
-            {
-                result = (double)fileSize / Math.Pow(2, 3);
-                unit = "B";
-            }
-            return Math.Round(result, 2).ToString() + " " + unit;
-        }
     }
 }

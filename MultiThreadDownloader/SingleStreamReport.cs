@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MultiThreadDownloader.BLL;
 using MultiThreadDownloader.DTO;
 
 namespace MultiThreadDownloader
@@ -23,9 +24,9 @@ namespace MultiThreadDownloader
         {
             this.isComplete.Text = report.isComplete.ToString();
             this.totalTime.Text = report.totalTime.Hours.ToString() + "h " + report.totalTime.Minutes.ToString() + "m " + report.totalTime.Seconds.ToString() + "s";
-            this.downloadedSize.Text = report.downloadedSize.ToString() + " bytes";
-            this.maxSpeed.Text = report.maxSpeed.ToString() + " bit/s";
-            this.averageSpeed.Text = report.averageSpeed.ToString() + " bit/s";
+            this.downloadedSize.Text = BLLConverter.FileSizeToString(report.downloadedSize);
+            this.maxSpeed.Text = BLLConverter.BandWidthToString(report.maxSpeed);
+            this.averageSpeed.Text = BLLConverter.BandWidthToString(report.averageSpeed);
         }
     }
 }

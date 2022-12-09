@@ -33,7 +33,12 @@ namespace MultiThreadDownloader.DTO
                 // List các thread
                 List<Task> allTask = new List<Task>();
                 // Chạy song song các thread
-                Parallel.ForEach(ranges, new ParallelOptions { MaxDegreeOfParallelism = -1 }, range => allTask.Add(PartialDownload(url, range)));
+                Parallel.ForEach(ranges, new ParallelOptions { MaxDegreeOfParallelism = -1 }, range =>
+                {
+                    Task task = PartialDownload(url, range);
+                    task.ConfigureAwait(false);
+                    allTask.Add(task); 
+                });
                 // Chờ mọi thread tải xong
                 await Task.WhenAll(allTask);
                 // Tạo file đích
@@ -72,7 +77,7 @@ namespace MultiThreadDownloader.DTO
         // Hàm tải từng phần của 1 file
         private async Task PartialDownload(string url, Range range)
         {
-            //var httpClient = new HttpClient();
+            var httpClient = new HttpClient();
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Get;
             request.RequestUri = new Uri(url);

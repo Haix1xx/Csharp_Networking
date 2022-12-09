@@ -40,76 +40,68 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(136, 256);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.progressBar.Location = new System.Drawing.Point(91, 166);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(873, 35);
+            this.progressBar.Size = new System.Drawing.Size(582, 23);
             this.progressBar.TabIndex = 16;
             // 
             // urlTextbox
             // 
-            this.urlTextbox.Location = new System.Drawing.Point(136, 18);
-            this.urlTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.urlTextbox.Location = new System.Drawing.Point(91, 12);
             this.urlTextbox.Name = "urlTextbox";
             this.urlTextbox.ReadOnly = true;
-            this.urlTextbox.Size = new System.Drawing.Size(873, 76);
+            this.urlTextbox.Size = new System.Drawing.Size(583, 51);
             this.urlTextbox.TabIndex = 15;
             this.urlTextbox.Text = "";
             // 
             // sizeTextbox
             // 
-            this.sizeTextbox.Location = new System.Drawing.Point(136, 170);
-            this.sizeTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.sizeTextbox.Location = new System.Drawing.Point(91, 110);
             this.sizeTextbox.Name = "sizeTextbox";
             this.sizeTextbox.ReadOnly = true;
-            this.sizeTextbox.Size = new System.Drawing.Size(873, 26);
+            this.sizeTextbox.Size = new System.Drawing.Size(583, 20);
             this.sizeTextbox.TabIndex = 14;
             // 
             // filePathTextbox
             // 
-            this.filePathTextbox.Location = new System.Drawing.Point(136, 112);
-            this.filePathTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.filePathTextbox.Location = new System.Drawing.Point(91, 73);
             this.filePathTextbox.Name = "filePathTextbox";
             this.filePathTextbox.ReadOnly = true;
-            this.filePathTextbox.Size = new System.Drawing.Size(873, 26);
+            this.filePathTextbox.Size = new System.Drawing.Size(583, 20);
             this.filePathTextbox.TabIndex = 13;
             // 
             // fileSizeLabel
             // 
             this.fileSizeLabel.AutoSize = true;
-            this.fileSizeLabel.Location = new System.Drawing.Point(22, 173);
-            this.fileSizeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fileSizeLabel.Location = new System.Drawing.Point(15, 112);
             this.fileSizeLabel.Name = "fileSizeLabel";
-            this.fileSizeLabel.Size = new System.Drawing.Size(40, 20);
+            this.fileSizeLabel.Size = new System.Drawing.Size(27, 13);
             this.fileSizeLabel.TabIndex = 12;
             this.fileSizeLabel.Text = "Size";
             // 
             // urlLabel
             // 
             this.urlLabel.AutoSize = true;
-            this.urlLabel.Location = new System.Drawing.Point(22, 23);
-            this.urlLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.urlLabel.Location = new System.Drawing.Point(15, 15);
             this.urlLabel.Name = "urlLabel";
-            this.urlLabel.Size = new System.Drawing.Size(42, 20);
+            this.urlLabel.Size = new System.Drawing.Size(29, 13);
             this.urlLabel.TabIndex = 11;
             this.urlLabel.Text = "URL";
             // 
             // filePathLabel
             // 
             this.filePathLabel.AutoSize = true;
-            this.filePathLabel.Location = new System.Drawing.Point(22, 117);
-            this.filePathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.filePathLabel.Location = new System.Drawing.Point(15, 76);
             this.filePathLabel.Name = "filePathLabel";
-            this.filePathLabel.Size = new System.Drawing.Size(71, 20);
+            this.filePathLabel.Size = new System.Drawing.Size(48, 13);
             this.filePathLabel.TabIndex = 10;
             this.filePathLabel.Text = "File Path";
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(514, 324);
-            this.startButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.startButton.Location = new System.Drawing.Point(343, 211);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(112, 35);
+            this.startButton.Size = new System.Drawing.Size(75, 23);
             this.startButton.TabIndex = 9;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
@@ -117,9 +109,9 @@
             // 
             // SingleStreamForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1046, 395);
+            this.ClientSize = new System.Drawing.Size(697, 257);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.urlTextbox);
             this.Controls.Add(this.sizeTextbox);
@@ -128,9 +120,9 @@
             this.Controls.Add(this.urlLabel);
             this.Controls.Add(this.filePathLabel);
             this.Controls.Add(this.startButton);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SingleStreamForm";
             this.Text = "SingleStreamForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SingleStreamForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

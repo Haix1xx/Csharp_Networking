@@ -16,7 +16,9 @@ namespace MultiThreadDownloader
     public partial class SingleStreamForm : Form
     {
         private SingleStreamDownload download;
-
+        public delegate void InvokeForm();
+        public InvokeForm BackForm { get; set; }
+        public InvokeForm CloseForm { get; set; }
         public SingleStreamForm(Download download)
         {
             InitializeComponent();
@@ -60,6 +62,11 @@ namespace MultiThreadDownloader
                 MessageBox.Show(ex.Message);
                 startButton.Enabled = true;
             }
+        }
+
+        private void SingleStreamForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BackForm?.Invoke();
         }
     }
 }

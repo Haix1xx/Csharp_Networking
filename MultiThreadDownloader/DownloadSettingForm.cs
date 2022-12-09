@@ -88,6 +88,8 @@ namespace MultiThreadDownloader
                     {
                         Download download = new SingleStreamDownload(url, filePath, fileSize);
                         SingleStreamForm form = new SingleStreamForm(download);
+                        form.BackForm = () => this.Show();
+                        form.CloseForm = () => DisposeAllForm();
                         this.Hide();
                         form.ShowDialog();
                     }    

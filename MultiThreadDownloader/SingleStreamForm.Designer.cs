@@ -36,11 +36,12 @@
             this.urlLabel = new System.Windows.Forms.Label();
             this.filePathLabel = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
+            this.detailButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(136, 256);
+            this.progressBar.Location = new System.Drawing.Point(136, 255);
             this.progressBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(873, 35);
@@ -52,17 +53,17 @@
             this.urlTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.urlTextbox.Name = "urlTextbox";
             this.urlTextbox.ReadOnly = true;
-            this.urlTextbox.Size = new System.Drawing.Size(873, 76);
+            this.urlTextbox.Size = new System.Drawing.Size(872, 76);
             this.urlTextbox.TabIndex = 15;
             this.urlTextbox.Text = "";
             // 
             // sizeTextbox
             // 
-            this.sizeTextbox.Location = new System.Drawing.Point(136, 170);
+            this.sizeTextbox.Location = new System.Drawing.Point(136, 169);
             this.sizeTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.sizeTextbox.Name = "sizeTextbox";
             this.sizeTextbox.ReadOnly = true;
-            this.sizeTextbox.Size = new System.Drawing.Size(873, 26);
+            this.sizeTextbox.Size = new System.Drawing.Size(872, 26);
             this.sizeTextbox.TabIndex = 14;
             // 
             // filePathTextbox
@@ -71,13 +72,13 @@
             this.filePathTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.filePathTextbox.Name = "filePathTextbox";
             this.filePathTextbox.ReadOnly = true;
-            this.filePathTextbox.Size = new System.Drawing.Size(873, 26);
+            this.filePathTextbox.Size = new System.Drawing.Size(872, 26);
             this.filePathTextbox.TabIndex = 13;
             // 
             // fileSizeLabel
             // 
             this.fileSizeLabel.AutoSize = true;
-            this.fileSizeLabel.Location = new System.Drawing.Point(22, 173);
+            this.fileSizeLabel.Location = new System.Drawing.Point(22, 172);
             this.fileSizeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fileSizeLabel.Name = "fileSizeLabel";
             this.fileSizeLabel.Size = new System.Drawing.Size(40, 20);
@@ -106,7 +107,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(514, 324);
+            this.startButton.Location = new System.Drawing.Point(514, 325);
             this.startButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(112, 35);
@@ -114,6 +115,18 @@
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            // 
+            // detailButton
+            // 
+            this.detailButton.Enabled = false;
+            this.detailButton.Location = new System.Drawing.Point(381, 325);
+            this.detailButton.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.detailButton.Name = "detailButton";
+            this.detailButton.Size = new System.Drawing.Size(112, 35);
+            this.detailButton.TabIndex = 9;
+            this.detailButton.Text = "Detail";
+            this.detailButton.UseVisualStyleBackColor = true;
+            this.detailButton.Click += new System.EventHandler(this.detailButton_Click);
             // 
             // SingleStreamForm
             // 
@@ -127,10 +140,12 @@
             this.Controls.Add(this.fileSizeLabel);
             this.Controls.Add(this.urlLabel);
             this.Controls.Add(this.filePathLabel);
+            this.Controls.Add(this.detailButton);
             this.Controls.Add(this.startButton);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SingleStreamForm";
             this.Text = "SingleStreamForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SingleStreamForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,5 +161,6 @@
         private System.Windows.Forms.Label urlLabel;
         private System.Windows.Forms.Label filePathLabel;
         private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button detailButton;
     }
 }

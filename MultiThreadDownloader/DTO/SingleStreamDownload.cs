@@ -10,12 +10,19 @@ namespace MultiThreadDownloader.DTO
 {
     public class SingleStreamDownload : Download
     {
+        public DownloadReport report { get; set; }
         public long fileLength { get; set; }
         public SingleStreamDownload(string url, string filePath, long fileLength)
         {
             this.url = url;
             this.filePath = filePath;
             this.fileLength = fileLength;
+            this.report = new DownloadReport()
+            {
+                key = 0,
+                maxSpeed = 0,
+                isComplete = false,
+            };
         }
         public async override Task StartDownload()
         {
@@ -25,6 +32,7 @@ namespace MultiThreadDownloader.DTO
         {
             try
             {
+                report.startTime = DateTime.Now;
                 // Gửi HTTP request, chờ phản hồi từ URL
                 var responseMessage = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
                 // Đọc nội dung của HTTP response
@@ -32,21 +40,34 @@ namespace MultiThreadDownloader.DTO
                 // Biến bộ nhớ đệm, khi đọc đủ kích thước bộ nhớ đệm thì sẽ ghi vào file, rồi tiếp tục đọc
                 const int SIZEBUFFER = 4096;
                 var buffer = new byte[SIZEBUFFER];
-                //
-                int numberByte = 0;
+                
+                int numberByteRead = 0;
                 // Xác định file ghi
                 var streamWrite = File.OpenWrite(filePath);
                 // Vòng lặp đọc & ghi
                 do
                 {
+                    DateTime begin = DateTime.Now;
                     // Đọc nội dung vào bộ nhớ đệm
-                    numberByte = await stream.ReadAsync(buffer, 0, SIZEBUFFER);
+                    numberByteRead = await stream.ReadAsync(buffer, 0, SIZEBUFFER);
                     // Ghi dữ liệu bộ nhớ đệm vào file
-                    await streamWrite.WriteAsync(buffer, 0, numberByte);
-                    progress?.Report(numberByte);
+                    await streamWrite.WriteAsync(buffer, 0, numberByteRead);
+                    // Đo bandwidth tức thời (bit/s)
+                    TimeSpan time = (DateTime.Now - begin);
+                    long currentSpeed = (long)(SIZEBUFFER*8/time.TotalSeconds);
+                    // Xác định bandwidth lớn nhất
+                    if (report.maxSpeed < currentSpeed)
+                        report.maxSpeed = currentSpeed;
+                    // Đếm số byte đã đọc
+                    report.downloadedSize += numberByteRead;
+                    progress?.Report(numberByteRead);
                 }
-                while (numberByte > 0);
+                while (numberByteRead > 0);
                 streamWrite.Close();
+                if (report.downloadedSize == fileLength)
+                    report.isComplete = true;
+                report.endTime = DateTime.Now;
+                // Truyền report lên?
             }
             catch (Exception)
             {

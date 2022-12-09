@@ -19,7 +19,7 @@ namespace MultiThreadDownloader.BLL
                 request.Method = HttpMethod.Head;
                 request.RequestUri = new Uri(url);
                 // Gửi HTTP request
-                var response = await httpClient.SendAsync(request);
+                var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
                 // Lấy kích cỡ file, nằm ở phần Content-Length
                 var result = response.Content.Headers.GetValues("Content-Length");
                 return long.Parse(result.FirstOrDefault());
@@ -50,6 +50,38 @@ namespace MultiThreadDownloader.BLL
                 ChunkIndex = readRanges.Count()
             });
             return readRanges;
+        }
+
+        public static string FileSizeToString(long fileSize)
+        {
+            string unit = "";
+            double result;
+            if (fileSize >= Math.Pow(2,40))
+            {
+                result = (double)fileSize / Math.Pow(2, 40);
+                unit = "TB";
+            }  
+            else if(fileSize >= Math.Pow(2, 30))
+            {
+                result = (double)fileSize / Math.Pow(2, 30);
+                unit = "GB";
+            }
+            else if (fileSize >= Math.Pow(2, 20))
+            {
+                result = (double)fileSize / Math.Pow(2, 20);
+                unit = "MB";
+            }
+            else if(fileSize >= Math.Pow(2, 10))
+            {
+                result = (double)fileSize / Math.Pow(2, 10);
+                unit = "kB";
+            }    
+            else
+            {
+                result = (double)fileSize / Math.Pow(2, 3);
+                unit = "B";
+            }
+            return Math.Round(result, 2).ToString() + " " + unit;
         }
     }
 }

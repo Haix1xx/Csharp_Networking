@@ -16,7 +16,9 @@ namespace MultiThreadDownloader
     public partial class SingleStreamForm : Form
     {
         private SingleStreamDownload download;
-
+        public delegate void InvokeForm();
+        public InvokeForm BackForm { get; set; }
+        public InvokeForm CloseForm { get; set; }
         public SingleStreamForm(Download download)
         {
             InitializeComponent();
@@ -51,15 +53,27 @@ namespace MultiThreadDownloader
         {
             try
             {
+                detailButton.Enabled = false;
                 startButton.Enabled = false;
                 progressBar.Value = 0;
                 await BLLDownloadProcessing.BeginDownload(this.download);
+                detailButton.Enabled = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                detailButton.Enabled = true;
                 startButton.Enabled = true;
             }
+        }
+        private void SingleStreamForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BackForm?.Invoke();
+        }
+        private void detailButton_Click(object sender, EventArgs e)
+        {
+            SingleStreamReport form = new SingleStreamReport(download.report);
+            form.ShowDialog();
         }
     }
 }

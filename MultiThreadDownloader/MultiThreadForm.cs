@@ -16,6 +16,9 @@ namespace MultiThreadDownloader
     public partial class MultiThreadForm : Form
     {
         private MultiThreadDownload download;
+        public delegate void InvokeForm();
+        public InvokeForm BackForm { get; set; }
+        public InvokeForm CloseForm { get; set; }
         public MultiThreadForm()
         {
             InitializeComponent();            
@@ -57,13 +60,25 @@ namespace MultiThreadDownloader
             {
                 startButton.Enabled = false;
                 progressBar.Value = 0;
-                await BLLDownloadProcessing.BeginDownload(this.download);
+                var task = await BLLDownloadProcessing.BeginDownload(this.download);
+                DialogResult dialogResult =  MessageBox.Show("Download done in: " + task);
+                if(dialogResult == DialogResult.OK)
+                {
+                    BackForm = null;
+                    CloseForm?.Invoke();
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 startButton.Enabled = true;
             }
+        }
+
+        private void MultiThreadForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BackForm?.Invoke();
         }
     }
 }

@@ -10,12 +10,13 @@ namespace MultiThreadDownloader.BLL
 {
     public class BLLDownloadProcessing
     {
-        public static async Task BeginDownload(Download download)
+        public static async Task<TimeSpan> BeginDownload(Download download)
         {
             var beginTime = DateTime.Now;
             await download.StartDownload();
             var endTime = DateTime.Now;
-            MessageBox.Show("Download done in: " + (endTime - beginTime));
+            return endTime - beginTime;
+            //MessageBox.Show("Download done in: " + (endTime - beginTime));
         }
     }
 }

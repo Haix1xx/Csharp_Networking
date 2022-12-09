@@ -114,5 +114,12 @@ namespace MultiThreadDownloader
             this.Dispose();
             this.Close();
         }
+
+        private void DownloadSettingForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Back?.Invoke();
+            this.Dispose();
+            this.Close();
+        }
     }
 }

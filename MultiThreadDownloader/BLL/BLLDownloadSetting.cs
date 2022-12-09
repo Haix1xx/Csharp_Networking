@@ -54,18 +54,34 @@ namespace MultiThreadDownloader.BLL
 
         public static string FileSizeToString(long fileSize)
         {
-            string result;
+            string unit = "";
+            double result;
             if (fileSize >= Math.Pow(2,40))
-                result = ((double)fileSize / Math.Pow(2, 40)).ToString() + "TB";
-            else if(fileSize >= Math.Pow(2,30))
-                result = ((double)fileSize / Math.Pow(2, 30)).ToString() + "GB";
+            {
+                result = (double)fileSize / Math.Pow(2, 40);
+                unit = "TB";
+            }  
+            else if(fileSize >= Math.Pow(2, 30))
+            {
+                result = (double)fileSize / Math.Pow(2, 30);
+                unit = "GB";
+            }
             else if (fileSize >= Math.Pow(2, 20))
-                result = ((double)fileSize / Math.Pow(2, 20)).ToString() + "MB";
+            {
+                result = (double)fileSize / Math.Pow(2, 20);
+                unit = "MB";
+            }
             else if(fileSize >= Math.Pow(2, 10))
-                result = ((double)fileSize / Math.Pow(2, 10)).ToString() + "kB";
+            {
+                result = (double)fileSize / Math.Pow(2, 10);
+                unit = "kB";
+            }    
             else
-                result = ((double)fileSize / Math.Pow(2, 3)).ToString() + "B";
-            return result;
+            {
+                result = (double)fileSize / Math.Pow(2, 3);
+                unit = "B";
+            }
+            return Math.Round(result, 2).ToString() + " " + unit;
         }
     }
 }

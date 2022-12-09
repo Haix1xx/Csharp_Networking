@@ -41,7 +41,6 @@
             this.fileNameTextbox = new System.Windows.Forms.TextBox();
             this.numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.memoryUnitLabel = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -164,7 +163,6 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.fileSizeTextbox);
-            this.groupBox1.Controls.Add(this.memoryUnitLabel);
             this.groupBox1.Controls.Add(this.fileSizeLabel);
             this.groupBox1.Controls.Add(this.fileNameTextbox);
             this.groupBox1.Controls.Add(this.savePathLabel);
@@ -177,16 +175,6 @@
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Information";
-            // 
-            // memoryUnitLabel
-            // 
-            this.memoryUnitLabel.AutoSize = true;
-            this.memoryUnitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.memoryUnitLabel.Location = new System.Drawing.Point(381, 27);
-            this.memoryUnitLabel.Name = "memoryUnitLabel";
-            this.memoryUnitLabel.Size = new System.Drawing.Size(45, 16);
-            this.memoryUnitLabel.TabIndex = 0;
-            this.memoryUnitLabel.Text = "bytes";
             // 
             // cancelButton
             // 
@@ -265,6 +253,7 @@
             this.Controls.Add(this.label1);
             this.Name = "DownloadSettingForm";
             this.Text = "SettingDownloadForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadSettingForm_FormClosing);
             this.Load += new System.EventHandler(this.DownloadSettingForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -293,7 +282,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button confirmButton;
-        private System.Windows.Forms.Label memoryUnitLabel;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton multiThreadRadio;
         private System.Windows.Forms.RadioButton singleStreamRadio;

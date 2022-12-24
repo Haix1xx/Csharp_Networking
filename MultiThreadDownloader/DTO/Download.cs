@@ -14,10 +14,10 @@ namespace MultiThreadDownloader.DTO
 {
     public abstract class Download
     {
-        public string url { get; set; }
-        public string filePath { get; set; }
+        public string Url { get; set; }
+        public string FilePath { get; set; }
         protected HttpClient httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(10) };
-        public IProgress<int> progress { get; set; }
+        public IProgress<int> Progress { get; set; }
 
         public abstract Task StartDownload();
     }

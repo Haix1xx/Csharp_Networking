@@ -12,7 +12,7 @@ namespace MultiThreadDownloader.DTO
 {
     public class MultiThreadDownload : Download
     {
-        public List<Range> ranges { get; set; }
+        public List<Range> Ranges { get; set; }
         private ConcurrentDictionary<int, string> dict;
         public async override Task StartDownload()
         {
@@ -21,9 +21,9 @@ namespace MultiThreadDownloader.DTO
         
         public MultiThreadDownload(string url, string filePath, List<Range> ranges)
         {
-            this.url = url;
-            this.filePath = filePath;
-            this.ranges = ranges;
+            this.Url = url;
+            this.FilePath = filePath;
+            this.Ranges = ranges;
             this.dict = new ConcurrentDictionary<int, string>();
         }
         public async Task ParallelDownload()
@@ -33,16 +33,16 @@ namespace MultiThreadDownloader.DTO
                 // List các thread
                 List<Task> allTask = new List<Task>();
                 // Chạy song song các thread
-                Parallel.ForEach(ranges, new ParallelOptions { MaxDegreeOfParallelism = -1 }, range =>
+                Parallel.ForEach(Ranges, new ParallelOptions { MaxDegreeOfParallelism = -1 }, range =>
                 {
-                    Task task = PartialDownload(url, range);
+                    Task task = PartialDownload(Url, range);
                     task.ConfigureAwait(false);
                     allTask.Add(task); 
                 });
                 // Chờ mọi thread tải xong
                 await Task.WhenAll(allTask);
                 // Tạo file đích
-                FileStream fileStream = new FileStream(filePath, FileMode.Append);
+                FileStream fileStream = new FileStream(FilePath, FileMode.Append);
                 // Vòng lặp ghép file
                 foreach (var tempFile in dict.OrderBy(a => a.Key))
                 {
@@ -99,7 +99,7 @@ namespace MultiThreadDownloader.DTO
             responseMessage.Dispose();
             //httpClient.Dispose();
         }
-        private async Task<String> LoadStreamToFile(Stream data)
+        private async Task<string> LoadStreamToFile(Stream data)
         {
             // Tạo file nhớ tạm
             var tempFilePath = Path.GetTempFileName();
@@ -120,7 +120,7 @@ namespace MultiThreadDownloader.DTO
                     // Ghi dữ liệu bộ nhớ đệm vào file
                     await streamWrite.WriteAsync(buffer, 0, numberByteRead);
                     // Report tiến độ cho UI progress bar
-                    progress?.Report(numberByteRead);
+                    Progress?.Report(numberByteRead);
                 }
             }
             while (numberByteRead > 0);

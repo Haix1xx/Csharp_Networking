@@ -27,12 +27,12 @@ namespace MultiThreadDownloader
         }
         public void InitGUI()
         {
-            this.urlTextbox.Text = download.url;
-            this.filePathTextbox.Text = download.filePath;
+            this.urlTextbox.Text = download.Url;
+            this.filePathTextbox.Text = download.FilePath;
             this.sizeTextbox.Text = download.fileLength.ToString();
             progressBar.Maximum = (int)download.fileLength;
             var progress = new Progress<int>(ReportProgress);
-            this.download.progress = progress;
+            this.download.Progress = progress;
         }
         public void ReportProgress(int value)
         {

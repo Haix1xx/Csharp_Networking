@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http.Headers;
-using System.Windows.Forms;
-using Google.Apis.Drive.v3;
+﻿using Google.Apis.Drive.v3;
 using Google.Apis.Http;
 using MultiThreadDownloader.BLL;
 using MultiThreadDownloader.DTO;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 namespace MultiThreadDownloader
 {
-    public partial class DownloadSettingForm : Form
+    public partial class GoogleDriveDownloadSettingForm : Form
     {
         private string url;
         private long fileSize;
@@ -18,20 +25,15 @@ namespace MultiThreadDownloader
         public InvokeForm CloseForm { get; set; }
         public ConfigurableHttpClient httpClient = null;
         public DriveService Service = null;
-        public DownloadSettingForm()
+        public GoogleDriveDownloadSettingForm()
         {
             InitializeComponent();
         }
-        public DownloadSettingForm(string url)
-        {
-            InitializeComponent();
-            this.url = url;            
-        }
-        public DownloadSettingForm(string url, DriveService Service)
+        public GoogleDriveDownloadSettingForm(string url, DriveService Service)
         {
             InitializeComponent();
             this.url = url;
-            this.Service = Service; 
+            this.Service = Service;
         }
         private async void DownloadSettingForm_Load(object sender, EventArgs e)
         {
@@ -41,7 +43,9 @@ namespace MultiThreadDownloader
             fileSizeTextbox.Text = "Getting file length...";
             try
             {
-                this.fileSize = await BLLDownloadSetting.GetFileLength(this.url);
+                string[] response = await BLLDownloadSetting.GetFileLength(this.url, this.Service);
+                this.fileSize = long.Parse(response[0]);
+                fileNameTextbox.Text = response[1];                
                 fileSizeTextbox.Text = BLLConverter.FileSizeToString(fileSize);
                 confirmButton.Enabled = true;
             }
@@ -72,7 +76,7 @@ namespace MultiThreadDownloader
                 savePathTextbox.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-        private void confirmButton_Click(object sender, EventArgs e)
+        private async void confirmButton_Click(object sender, EventArgs e)
         {
             string filePath = savePathTextbox.Text;
             if (Directory.Exists(filePath))
@@ -84,8 +88,11 @@ namespace MultiThreadDownloader
                     if (multiThreadRadio.Checked)
                     {
                         int totalThread = Convert.ToInt32(numericUpDown.Value);
-                        List<Range> readRanges = BLLDownloadSetting.CalculateRange(fileSize, totalThread);
-                        Download download = new MultiThreadDownload(url, filePath, readRanges);
+                        //List<Range> readRanges = BLLDownloadSetting.CalculateRange(fileSize, totalThread);
+                        List<RangeHeaderValue> ranges = BLLDownloadSetting.CalculateRangeHeaderValue(fileSize, totalThread);
+                        //Download download = new MultiThreadDownload(url, filePath, readRanges);
+                        var service = await GoogleDriverHelper.GetService();
+                        Download download = new GoogleDriveDownload(this.url, filePath, ranges, service);
                         MultiThreadForm form = new MultiThreadForm(download);
                         form.BackForm = () => this.Show();
                         form.CloseForm = () => DisposeAllForm();
@@ -100,7 +107,7 @@ namespace MultiThreadDownloader
                         form.CloseForm = () => DisposeAllForm();
                         this.Hide();
                         form.ShowDialog();
-                    }    
+                    }
                 }
                 else
                 {

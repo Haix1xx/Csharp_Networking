@@ -10,12 +10,15 @@ using System.Windows.Forms;
 using MultiThreadDownloader.DTO;
 using MultiThreadDownloader.BLL;
 using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace MultiThreadDownloader
 {
     public partial class MultiThreadForm : Form
     {
-        private MultiThreadDownload download;
+        //private MultiThreadDownload downloadM;
+        //private GoogleDriveDownload downloadG;
+        private Download download;
         public delegate void InvokeForm();
         public InvokeForm BackForm { get; set; }
         public InvokeForm CloseForm { get; set; }
@@ -27,17 +30,39 @@ namespace MultiThreadDownloader
         public MultiThreadForm(Download download)
         {
             InitializeComponent();
-            this.download = download as MultiThreadDownload;
+            //this.download = download as MultiThreadDownload;
+            this.download = download;
             InitGUI();
         }
         public void InitGUI()
         {
-            this.urlTextbox.Text = download.url;
-            this.filePathTextbox.Text = download.filePath;
-            this.sizeTextbox.Text = download.ranges.Last().End.ToString();
-            progressBar.Maximum = (int)download.ranges.Last().End;
-            var progress = new Progress<int>(ReportProgress);
-            this.download.progress = progress;
+            //this.urlTextbox.Text = download.url;
+            //this.filePathTextbox.Text = download.filePath;
+            //this.sizeTextbox.Text = download.ranges.Last().End.ToString();
+            //progressBar.Maximum = (int)download.ranges.Last().End;
+            //var progress = new Progress<int>(ReportProgress);
+            //this.download.progress = progress;
+            if(download is GoogleDriveDownload)
+            {
+                GoogleDriveDownload downloadG = (GoogleDriveDownload)download;
+                this.urlTextbox.Text = downloadG.Url;
+                this.filePathTextbox.Text = downloadG.FilePath;
+                //this.sizeTextbox.Text = download.ranges.Last().Ranges.FirstOrDefault().To.ToString();
+                progressBar.Maximum = (int)downloadG.Ranges.Last().Ranges.FirstOrDefault().To;
+                var progress = new Progress<int>(ReportProgress);
+                this.download.Progress = progress;
+            }
+            else if(download is MultiThreadDownload)
+            {
+                MultiThreadDownload downloadM = (MultiThreadDownload)download;
+                this.urlTextbox.Text = download.Url;
+                this.filePathTextbox.Text = download.FilePath;
+                this.sizeTextbox.Text = downloadM.Ranges.Last().End.ToString();
+                progressBar.Maximum = (int)downloadM.Ranges.Last().End;
+                var progress = new Progress<int>(ReportProgress);
+                this.download.Progress = progress;
+            }
+
         }
         public void ReportProgress(int value)
         {
@@ -71,8 +96,9 @@ namespace MultiThreadDownloader
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
                 startButton.Enabled = true;
+                throw ex;                
             }
         }
 

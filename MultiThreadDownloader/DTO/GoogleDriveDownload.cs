@@ -80,8 +80,7 @@ namespace MultiThreadDownloader.DTO
                     File.Delete(tempFile.Value);
                 }
                 // Ném thông báo lỗi
-                //throw new Exception("Download failed");
-                throw e;
+                throw new Exception("Download failed");
             }
         }
         private async Task PartialDownload(string id, RangeHeaderValue range)

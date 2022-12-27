@@ -96,9 +96,9 @@ namespace MultiThreadDownloader
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
                 startButton.Enabled = true;
-                throw ex;                
+                //throw ex;                
             }
         }
 

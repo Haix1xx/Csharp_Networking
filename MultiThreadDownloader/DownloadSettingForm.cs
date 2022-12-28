@@ -10,6 +10,7 @@ namespace MultiThreadDownloader
     {
         private string url;
         private long fileSize;
+        private string fileType;
         public delegate void InvokeForm();
         public InvokeForm Back { get; set; }
         public InvokeForm CloseForm { get; set; }
@@ -32,9 +33,10 @@ namespace MultiThreadDownloader
             try
             {
                 this.fileSize = await BLLDownloadSetting.GetFileLength(this.url);
-                fileSizeTextbox.Text = fileSize.ToString();
-                fileSizeTextbox.Text = BLLDownloadSetting.FileSizeToString(fileSize);
-
+                //fileSizeTextbox.Text = fileSize.ToString();
+                fileSizeTextbox.Text = BLLConverter.FileSizeToString(fileSize);
+                this.fileType = await BLLDownloadSetting.GetFileType(this.url);
+                fileTypeTextBox.Text = fileType;
                 confirmButton.Enabled = true;
             }
             catch (Exception ex)
@@ -71,7 +73,7 @@ namespace MultiThreadDownloader
             {
                 if (fileNameTextbox.Text != "")
                 {
-                    filePath += "\\" + fileNameTextbox.Text;
+                    filePath += "\\" + fileNameTextbox.Text + "." + fileType;
 
                     if (multiThreadRadio.Checked)
                     {

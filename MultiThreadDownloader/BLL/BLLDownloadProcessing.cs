@@ -1,6 +1,8 @@
 ﻿using MultiThreadDownloader.DTO;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +18,30 @@ namespace MultiThreadDownloader.BLL
             await download.StartDownload();
             var endTime = DateTime.Now;
             return endTime - beginTime;
-            //MessageBox.Show("Download done in: " + (endTime - beginTime));
+        }
+
+        public static DataTable GetMultiThreadReport(ConcurrentDictionary<int, DownloadReport> reports)
+        {
+            DataTable results = new DataTable();
+            results.Columns.AddRange(new DataColumn[]
+            {
+                new DataColumn {ColumnName = "Thread ID", DataType = typeof(string)},
+                new DataColumn {ColumnName = "Downloaded", DataType = typeof(string)},
+                new DataColumn {ColumnName = "Total Time", DataType = typeof(string)},
+                new DataColumn {ColumnName = "Average Speed", DataType = typeof(string)},
+                new DataColumn {ColumnName = "Is Completed", DataType = typeof(bool)}
+            });
+            foreach (var report in reports.Values)
+            {
+                results.Rows.Add(
+                    report.key.ToString(), 
+                    BLLConverter.FileSizeToString(report.downloadedSize),
+                    report.totalTime.Hours.ToString() + "h " + report.totalTime.Minutes.ToString() + "m " + report.totalTime.Seconds.ToString() + "s", 
+                    BLLConverter.BandWidthToString(report.averageSpeed), 
+                    report.isComplete
+                );
+            }
+            return results;
         }
     }
 }

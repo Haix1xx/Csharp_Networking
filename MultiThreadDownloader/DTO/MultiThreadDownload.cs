@@ -14,6 +14,7 @@ namespace MultiThreadDownloader.DTO
     {
         public List<Range> ranges { get; set; }
         private ConcurrentDictionary<int, string> dict;
+        public ConcurrentDictionary<int, DownloadReport> reports; 
         public async override Task StartDownload()
         {
             await ParallelDownload();
@@ -25,6 +26,15 @@ namespace MultiThreadDownloader.DTO
             this.filePath = filePath;
             this.ranges = ranges;
             this.dict = new ConcurrentDictionary<int, string>();
+            this.reports = new ConcurrentDictionary<int, DownloadReport>();
+            foreach (Range range in ranges)
+            {
+                reports.TryAdd(range.ChunkIndex, new DownloadReport()
+                {
+                    key = range.ChunkIndex,
+                    isComplete = false,
+                });
+            }
         }
         public async Task ParallelDownload()
         {
@@ -59,10 +69,10 @@ namespace MultiThreadDownloader.DTO
                 }
                 fileStream.Close();
             }
-            catch (TaskCanceledException e)
-            {
-                MessageBox.Show(e.ToString());
-            }
+            //catch (TaskCanceledException e)
+            //{
+            //    MessageBox.Show(e.ToString());
+            //}
             catch (Exception)
             {
                 // Dọn file nhớ tạm
@@ -85,12 +95,16 @@ namespace MultiThreadDownloader.DTO
             if (request.Headers.Contains("Range"))
                 request.Headers.Remove("Range");
             request.Headers.Add("Range", $"bytes={range.Start}-{range.End}");
+            // Tính thời gian chạy luồng, ban đầu bằng nhau để totalTime = 0
+            var time = DateTime.Now;
+            reports[range.ChunkIndex].startTime = time;
+            reports[range.ChunkIndex].endTime = time;
             // Gửi HTTP request, chờ phản hồi từ URL
             var responseMessage = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
             // Đọc nội dung của HTTP response
             var stream = await responseMessage.Content.ReadAsStreamAsync();
             // Ghi nội dung vào 1 file nhớ tạm
-            var tempFilePath = await LoadStreamToFile(stream);
+            var tempFilePath = await LoadStreamToFile(stream, range.ChunkIndex);
             // Gắn ChunkIndex & tempFilePath vào 1 Dictionary
             dict.TryAdd(range.ChunkIndex, tempFilePath);
             // Giải phóng
@@ -99,7 +113,7 @@ namespace MultiThreadDownloader.DTO
             responseMessage.Dispose();
             //httpClient.Dispose();
         }
-        private async Task<String> LoadStreamToFile(Stream data)
+        private async Task<String> LoadStreamToFile(Stream data, int key)
         {
             // Tạo file nhớ tạm
             var tempFilePath = Path.GetTempFileName();
@@ -107,8 +121,8 @@ namespace MultiThreadDownloader.DTO
             const int SIZEBUFFER = 4096;
             var buffer = new byte[SIZEBUFFER];
             // Biến đếm byte đã đọc
-            int numberByteRead;
-            // Xác định file ghis
+            int numberByteRead = 0;
+            // Xác định file ghi
             var streamWrite = File.OpenWrite(tempFilePath);
             // Vòng lặp đọc & ghi
             do
@@ -119,12 +133,16 @@ namespace MultiThreadDownloader.DTO
                 {
                     // Ghi dữ liệu bộ nhớ đệm vào file
                     await streamWrite.WriteAsync(buffer, 0, numberByteRead);
-                    // Report tiến độ cho UI progress bar
+                    // Report tiến độ cho UI progress bar & DownloadReport
+                    reports[key].downloadedSize += numberByteRead;
                     progress?.Report(numberByteRead);
                 }
             }
             while (numberByteRead > 0);
             streamWrite.Close();
+            // Báo cáo trạng thái luồng
+            reports[key].isComplete = true;
+            reports[key].endTime = DateTime.Now;
             return tempFilePath;
         }
     }

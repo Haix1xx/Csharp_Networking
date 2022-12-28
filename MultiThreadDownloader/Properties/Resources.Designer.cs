@@ -73,9 +73,9 @@ namespace MultiThreadDownloader.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap plugs {
+        internal static System.Drawing.Bitmap history {
             get {
-                object obj = ResourceManager.GetObject("plugs", resourceCulture);
+                object obj = ResourceManager.GetObject("history", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace MultiThreadDownloader.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap plus {
+        internal static System.Drawing.Bitmap plugs {
             get {
-                object obj = ResourceManager.GetObject("plus", resourceCulture);
+                object obj = ResourceManager.GetObject("plugs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

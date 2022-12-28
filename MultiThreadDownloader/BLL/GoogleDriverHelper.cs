@@ -60,5 +60,17 @@ namespace MultiThreadDownloader.BLL
             return service;
             
         }
+        public static bool RemoveService()
+        {
+            try
+            {
+                File.Delete(CrePath);
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
     }
 }

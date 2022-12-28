@@ -33,9 +33,21 @@
             this.driveUrlButton = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.spacePanel = new System.Windows.Forms.Panel();
+            this.sidePanel = new System.Windows.Forms.Panel();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.historyButton = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.listView = new System.Windows.Forms.ListView();
+            this.fileNameHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.fileSizeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.timeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.statusHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.topPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.urlButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.driveUrlButton)).BeginInit();
+            this.mainPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.historyButton)).BeginInit();
             this.SuspendLayout();
             // 
             // topPanel
@@ -48,18 +60,20 @@
             this.topPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.topPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.topPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.topPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.topPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.topPanel.Controls.Add(this.urlButton, 1, 0);
             this.topPanel.Controls.Add(this.driveUrlButton, 2, 0);
             this.topPanel.Controls.Add(this.label1, 1, 1);
             this.topPanel.Controls.Add(this.label2, 2, 1);
+            this.topPanel.Controls.Add(this.historyButton, 3, 0);
+            this.topPanel.Controls.Add(this.label3, 3, 1);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
             this.topPanel.RowCount = 2;
             this.topPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.topPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.topPanel.Size = new System.Drawing.Size(568, 100);
+            this.topPanel.Size = new System.Drawing.Size(709, 100);
             this.topPanel.TabIndex = 0;
             // 
             // urlButton
@@ -69,7 +83,7 @@
             this.urlButton.Image = global::MultiThreadDownloader.Properties.Resources.plugs;
             this.urlButton.Location = new System.Drawing.Point(33, 3);
             this.urlButton.Name = "urlButton";
-            this.urlButton.Size = new System.Drawing.Size(95, 64);
+            this.urlButton.Size = new System.Drawing.Size(123, 64);
             this.urlButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.urlButton.TabIndex = 0;
             this.urlButton.TabStop = false;
@@ -82,9 +96,9 @@
             this.driveUrlButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.driveUrlButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.driveUrlButton.Image = global::MultiThreadDownloader.Properties.Resources.drive;
-            this.driveUrlButton.Location = new System.Drawing.Point(134, 3);
+            this.driveUrlButton.Location = new System.Drawing.Point(162, 3);
             this.driveUrlButton.Name = "driveUrlButton";
-            this.driveUrlButton.Size = new System.Drawing.Size(95, 64);
+            this.driveUrlButton.Size = new System.Drawing.Size(123, 64);
             this.driveUrlButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.driveUrlButton.TabIndex = 1;
             this.driveUrlButton.TabStop = false;
@@ -99,7 +113,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(33, 70);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 30);
+            this.label1.Size = new System.Drawing.Size(123, 30);
             this.label1.TabIndex = 2;
             this.label1.Text = "Add URL";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -109,18 +123,111 @@
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(134, 70);
+            this.label2.Location = new System.Drawing.Point(162, 70);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 30);
+            this.label2.Size = new System.Drawing.Size(123, 30);
             this.label2.TabIndex = 3;
             this.label2.Text = "Drive URL";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // spacePanel
+            // 
+            this.spacePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.spacePanel.Location = new System.Drawing.Point(0, 100);
+            this.spacePanel.Name = "spacePanel";
+            this.spacePanel.Size = new System.Drawing.Size(709, 10);
+            this.spacePanel.TabIndex = 1;
+            // 
+            // sidePanel
+            // 
+            this.sidePanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.sidePanel.Location = new System.Drawing.Point(0, 110);
+            this.sidePanel.Name = "sidePanel";
+            this.sidePanel.Size = new System.Drawing.Size(132, 283);
+            this.sidePanel.TabIndex = 2;
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.Controls.Add(this.listView);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(132, 110);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(577, 283);
+            this.mainPanel.TabIndex = 3;
+            // 
+            // historyButton
+            // 
+            this.historyButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.historyButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.historyButton.Image = global::MultiThreadDownloader.Properties.Resources.history;
+            this.historyButton.Location = new System.Drawing.Point(291, 3);
+            this.historyButton.Name = "historyButton";
+            this.historyButton.Size = new System.Drawing.Size(123, 64);
+            this.historyButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.historyButton.TabIndex = 4;
+            this.historyButton.TabStop = false;
+            this.historyButton.Click += new System.EventHandler(this.historyButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(291, 70);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(123, 30);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "History";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // listView
+            // 
+            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.fileNameHeader,
+            this.fileSizeHeader,
+            this.timeHeader,
+            this.statusHeader});
+            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView.FullRowSelect = true;
+            this.listView.HideSelection = false;
+            this.listView.Location = new System.Drawing.Point(0, 0);
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(577, 283);
+            this.listView.TabIndex = 0;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.Details;
+            // 
+            // fileNameHeader
+            // 
+            this.fileNameHeader.Text = "File Name";
+            this.fileNameHeader.Width = 270;
+            // 
+            // fileSizeHeader
+            // 
+            this.fileSizeHeader.Text = "File Size";
+            this.fileSizeHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fileSizeHeader.Width = 85;
+            // 
+            // timeHeader
+            // 
+            this.timeHeader.Text = "Time Download";
+            this.timeHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.timeHeader.Width = 150;
+            // 
+            // statusHeader
+            // 
+            this.statusHeader.Text = "Status";
+            this.statusHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.statusHeader.Width = 65;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 334);
+            this.ClientSize = new System.Drawing.Size(709, 393);
+            this.Controls.Add(this.mainPanel);
+            this.Controls.Add(this.sidePanel);
+            this.Controls.Add(this.spacePanel);
             this.Controls.Add(this.topPanel);
             this.Name = "MainForm";
             this.Text = "Downloader";
@@ -128,6 +235,8 @@
             this.topPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.urlButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.driveUrlButton)).EndInit();
+            this.mainPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.historyButton)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -139,5 +248,15 @@
         private System.Windows.Forms.PictureBox driveUrlButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel spacePanel;
+        private System.Windows.Forms.Panel sidePanel;
+        private System.Windows.Forms.Panel mainPanel;
+        private System.Windows.Forms.PictureBox historyButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListView listView;
+        private System.Windows.Forms.ColumnHeader fileNameHeader;
+        private System.Windows.Forms.ColumnHeader fileSizeHeader;
+        private System.Windows.Forms.ColumnHeader timeHeader;
+        private System.Windows.Forms.ColumnHeader statusHeader;
     }
 }

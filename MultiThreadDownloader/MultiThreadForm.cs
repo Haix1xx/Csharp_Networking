@@ -47,7 +47,7 @@ namespace MultiThreadDownloader
                 GoogleDriveDownload downloadG = (GoogleDriveDownload)download;
                 this.urlTextbox.Text = downloadG.Url;
                 this.filePathTextbox.Text = downloadG.FilePath;
-                //this.sizeTextbox.Text = download.ranges.Last().Ranges.FirstOrDefault().To.ToString();
+                this.sizeTextbox.Text = downloadG.Ranges.Last().Ranges.FirstOrDefault().To.ToString();
                 progressBar.Maximum = (int)downloadG.Ranges.Last().Ranges.FirstOrDefault().To;
                 var progress = new Progress<int>(ReportProgress);
                 this.download.Progress = progress;

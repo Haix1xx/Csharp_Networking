@@ -77,5 +77,11 @@ namespace MultiThreadDownloader.BLL
             }
             return Math.Round(result, 2).ToString() + " " + unit;
         }
+
+        public static string GetFileName(string path)
+        {
+            var temp = path.Split('\\');
+            return temp[temp.Length - 1];
+        }
     }
 }

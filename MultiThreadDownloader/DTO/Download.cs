@@ -16,6 +16,7 @@ namespace MultiThreadDownloader.DTO
     {
         public string Url { get; set; }
         public string FilePath { get; set; }
+        public long FileSize { get; set; }
         protected HttpClient httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(10) };
         public IProgress<int> Progress { get; set; }
 

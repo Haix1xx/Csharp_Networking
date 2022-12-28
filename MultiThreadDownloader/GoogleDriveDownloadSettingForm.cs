@@ -92,7 +92,10 @@ namespace MultiThreadDownloader
                         List<RangeHeaderValue> ranges = BLLDownloadSetting.CalculateRangeHeaderValue(fileSize, totalThread);
                         //Download download = new MultiThreadDownload(url, filePath, readRanges);
                         var service = await GoogleDriverHelper.GetService();
-                        Download download = new GoogleDriveDownload(this.url, filePath, ranges, service);
+                        Download download = new GoogleDriveDownload(this.url, filePath, ranges, service)
+                        {
+                            FileSize = fileSize,
+                        };
                         MultiThreadForm form = new MultiThreadForm(download);
                         form.BackForm = () => this.Show();
                         form.CloseForm = () => DisposeAllForm();

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MultiThreadDownloader.BLL;
+using MultiThreadDownloader.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,6 +41,27 @@ namespace MultiThreadDownloader
         {
             //PictureBox pictureBox = sender as PictureBox;
             //pictureBox.BackColor = System.Drawing.SystemColors.ControlLight;
+        }
+        private void UpdateHistory(List<DownloadResult> list)
+        {
+            listView.Items.Clear();
+            list.ForEach( download =>
+            {
+                ListViewItem item = new ListViewItem();
+                item.Text = download.FileName;
+                item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = download.FileSize});
+                item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = download.TimeDownload.ToString()});
+                item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = download.Status});
+                listView.Items.Add(item);
+            });
+        }
+        private void historyButton_Click(object sender, EventArgs e)
+        {
+            var list = BLLDownloadHistory.LoadAll();
+            if (list.Count == 0)
+                MessageBox.Show("Have no downloads recently");
+            else
+                UpdateHistory(list);
         }
     }
 }

@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -83,10 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\BLLConverter.cs" />
+    <Compile Include="BLL\BLLDownloadHistory.cs" />
     <Compile Include="BLL\BLLDownloadProcessing.cs" />
     <Compile Include="BLL\BLLDownloadSetting.cs" />
     <Compile Include="BLL\GoogleDriverHelper.cs" />
     <Compile Include="DTO\DownloadReport.cs" />
+    <Compile Include="DTO\DownloadResult.cs" />
     <Compile Include="DTO\GoogleDriveDownload.cs" />
     <Compile Include="DTO\MultiThreadDownload.cs" />
     <Compile Include="DTO\SingleStreamDownload.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="bin\Debug\asset\client_secret.json" />
     <None Include="packages.config" />
@@ -201,6 +204,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\asset\img\history.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

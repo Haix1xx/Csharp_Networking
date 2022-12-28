@@ -29,7 +29,7 @@ namespace MultiThreadDownloader
         {
             this.urlTextbox.Text = download.url;
             this.filePathTextbox.Text = download.filePath;
-            this.sizeTextbox.Text = download.fileLength.ToString();
+            this.sizeTextbox.Text = BLLConverter.FileSizeToString(download.fileLength);
             progressBar.Maximum = (int)download.fileLength;
             var progress = new Progress<int>(ReportProgress);
             this.download.progress = progress;
@@ -56,13 +56,13 @@ namespace MultiThreadDownloader
                 detailButton.Enabled = false;
                 startButton.Enabled = false;
                 progressBar.Value = 0;
-                await BLLDownloadProcessing.BeginDownload(this.download);
+                TimeSpan totalTime = await BLLDownloadProcessing.BeginDownload(this.download);
+                DialogResult dialogResult = MessageBox.Show("Download done in: " + totalTime.ToString());
                 detailButton.Enabled = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                detailButton.Enabled = true;
                 startButton.Enabled = true;
             }
         }

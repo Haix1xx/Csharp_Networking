@@ -35,7 +35,7 @@ namespace MultiThreadDownloader
         {
             this.urlTextbox.Text = download.url;
             this.filePathTextbox.Text = download.filePath;
-            this.sizeTextbox.Text = download.ranges.Last().End.ToString();
+            this.sizeTextbox.Text = BLLConverter.FileSizeToString(download.ranges.Last().End+1);
             progressBar.Maximum = (int)download.ranges.Last().End;
             var progress = new Progress<int>(ReportProgress);
             this.download.progress = progress;

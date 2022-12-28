@@ -38,15 +38,23 @@ namespace MultiThreadDownloader.BLL
             return list;
         }
 
-        public static void ClearHistory()
+        public static bool ClearHistory()
         {
-            using(var stream = File.Open(StoragePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            try
             {
-                lock(stream)
+                using (var stream = File.Open(StoragePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
-                    stream.SetLength(0);
-                }    
-            }    
+                    lock (stream)
+                    {
+                        stream.SetLength(0);
+                    }
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }   
         }
     }
 }

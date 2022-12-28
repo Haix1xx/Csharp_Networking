@@ -208,5 +208,11 @@
   <ItemGroup>
     <None Include="bin\Debug\asset\img\history.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\asset\img\log-out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\asset\img\delete.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

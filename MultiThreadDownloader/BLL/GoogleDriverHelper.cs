@@ -64,7 +64,7 @@ namespace MultiThreadDownloader.BLL
         {
             try
             {
-                File.Delete(CrePath);
+                Directory.Delete(CrePath, true);
                 return true;
             }
             catch(Exception)

@@ -63,5 +63,19 @@ namespace MultiThreadDownloader
             else
                 UpdateHistory(list);
         }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            if (GoogleDriverHelper.RemoveService())
+                MessageBox.Show("Logout successfully");
+            else
+                MessageBox.Show("You have not logged in yet");
+        }
+
+        private void deleteHistoryButton_Click(object sender, EventArgs e)
+        {
+            BLLDownloadHistory.ClearHistory();
+            listView.Items.Clear();
+        }
     }
 }

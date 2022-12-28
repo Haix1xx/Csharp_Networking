@@ -29,6 +29,26 @@ namespace MultiThreadDownloader.BLL
                 throw new Exception("Failed to get file length");
             }
         }
+        public static async Task<string> GetFileType(string url)
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                // Chỉ rõ nội dung của HTTP request: gửi về chỉ phần Header, trong đó chứa kích cỡ file cần tải
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Head;
+                request.RequestUri = new Uri(url);
+                // Gửi HTTP request
+                var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                // Lấy kích cỡ file, nằm ở phần Content-Length
+                var result = response.Content.Headers.GetValues("Content-Type").First();
+                return result.Split(';')[0].Split('/')[1];
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Failed to get file type");
+            }
+        }
         public static List<Range> CalculateRange(long contentLength, int totalThread)
         {
             var readRanges = new List<Range>();
@@ -50,38 +70,6 @@ namespace MultiThreadDownloader.BLL
                 ChunkIndex = readRanges.Count()
             });
             return readRanges;
-        }
-
-        public static string FileSizeToString(long fileSize)
-        {
-            string unit = "";
-            double result;
-            if (fileSize >= Math.Pow(2,40))
-            {
-                result = (double)fileSize / Math.Pow(2, 40);
-                unit = "TB";
-            }  
-            else if(fileSize >= Math.Pow(2, 30))
-            {
-                result = (double)fileSize / Math.Pow(2, 30);
-                unit = "GB";
-            }
-            else if (fileSize >= Math.Pow(2, 20))
-            {
-                result = (double)fileSize / Math.Pow(2, 20);
-                unit = "MB";
-            }
-            else if(fileSize >= Math.Pow(2, 10))
-            {
-                result = (double)fileSize / Math.Pow(2, 10);
-                unit = "kB";
-            }    
-            else
-            {
-                result = (double)fileSize / Math.Pow(2, 3);
-                unit = "B";
-            }
-            return Math.Round(result, 2).ToString() + " " + unit;
         }
     }
 }

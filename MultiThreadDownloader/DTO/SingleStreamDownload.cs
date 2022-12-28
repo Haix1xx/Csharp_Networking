@@ -20,7 +20,6 @@ namespace MultiThreadDownloader.DTO
             this.report = new DownloadReport()
             {
                 key = 0,
-                maxSpeed = 0,
                 isComplete = false,
             };
         }
@@ -47,17 +46,10 @@ namespace MultiThreadDownloader.DTO
                 // Vòng lặp đọc & ghi
                 do
                 {
-                    DateTime begin = DateTime.Now;
                     // Đọc nội dung vào bộ nhớ đệm
                     numberByteRead = await stream.ReadAsync(buffer, 0, SIZEBUFFER);
                     // Ghi dữ liệu bộ nhớ đệm vào file
                     await streamWrite.WriteAsync(buffer, 0, numberByteRead);
-                    // Đo bandwidth tức thời (bit/s)
-                    TimeSpan time = (DateTime.Now - begin);
-                    long currentSpeed = (long)(SIZEBUFFER*8/time.TotalSeconds);
-                    // Xác định bandwidth lớn nhất
-                    if (report.maxSpeed < currentSpeed)
-                        report.maxSpeed = currentSpeed;
                     // Đếm số byte đã đọc
                     report.downloadedSize += numberByteRead;
                     progress?.Report(numberByteRead);

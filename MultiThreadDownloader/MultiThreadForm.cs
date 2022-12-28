@@ -15,7 +15,8 @@ namespace MultiThreadDownloader
 {
     public partial class MultiThreadForm : Form
     {
-        private  MultiThreadDownload download;
+        private MultiThreadDownload download;
+        private TimeSpan totalTime;
         public delegate void InvokeForm();
         public InvokeForm BackForm { get; set; }
         public InvokeForm CloseForm { get; set; }
@@ -58,17 +59,18 @@ namespace MultiThreadDownloader
         {
             try
             {
+                detailButton.Enabled = false;
                 startButton.Enabled = false;
                 progressBar.Value = 0;
-                var task = await BLLDownloadProcessing.BeginDownload(this.download);
-                DialogResult dialogResult =  MessageBox.Show("Download done in: " + task);
-                if(dialogResult == DialogResult.OK)
-                {
-                   // BackForm = null;
-                   // CloseForm?.Invoke();
-//this.Close();
-                    detailButton.Enabled = true;
-                }
+                totalTime = await BLLDownloadProcessing.BeginDownload(this.download);
+                DialogResult dialogResult =  MessageBox.Show("Download done in: " + totalTime.ToString());
+                //if(dialogResult == DialogResult.OK)
+                //{
+                //    BackForm = null;
+                //    CloseForm?.Invoke();
+                //    this.Close();
+                //}
+                detailButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -84,10 +86,9 @@ namespace MultiThreadDownloader
 
         private void detailButton_Click(object sender, EventArgs e)
         {
-          
-                MultiStreamReport form = new MultiStreamReport(download.reports, download.getReportInfo());
-                form.ShowDialog();
-            
+            DataTable reports = BLLDownloadProcessing.GetMultiThreadReport(download.reports);
+            MultiThreadReport form = new MultiThreadReport(totalTime, reports);
+            form.ShowDialog();
         }
     }
 }

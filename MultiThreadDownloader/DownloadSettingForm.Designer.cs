@@ -46,6 +46,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.multiThreadRadio = new System.Windows.Forms.RadioButton();
             this.singleStreamRadio = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.fileTypeTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -55,9 +57,10 @@
             // 
             this.fileSizeLabel.AutoSize = true;
             this.fileSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fileSizeLabel.Location = new System.Drawing.Point(5, 27);
+            this.fileSizeLabel.Location = new System.Drawing.Point(8, 42);
+            this.fileSizeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fileSizeLabel.Name = "fileSizeLabel";
-            this.fileSizeLabel.Size = new System.Drawing.Size(65, 16);
+            this.fileSizeLabel.Size = new System.Drawing.Size(92, 25);
             this.fileSizeLabel.TabIndex = 0;
             this.fileSizeLabel.Text = "File size";
             // 
@@ -65,9 +68,10 @@
             // 
             this.savePathLabel.AutoSize = true;
             this.savePathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.savePathLabel.Location = new System.Drawing.Point(5, 57);
+            this.savePathLabel.Location = new System.Drawing.Point(8, 88);
+            this.savePathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.savePathLabel.Name = "savePathLabel";
-            this.savePathLabel.Size = new System.Drawing.Size(77, 16);
+            this.savePathLabel.Size = new System.Drawing.Size(110, 25);
             this.savePathLabel.TabIndex = 1;
             this.savePathLabel.Text = "Save path";
             // 
@@ -75,9 +79,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(49, 77);
+            this.label3.Location = new System.Drawing.Point(74, 118);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 18);
+            this.label3.Size = new System.Drawing.Size(129, 26);
             this.label3.TabIndex = 2;
             this.label3.Text = "No. Thread";
             // 
@@ -85,42 +90,47 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(9, 6);
+            this.label1.Location = new System.Drawing.Point(14, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 24);
+            this.label1.Size = new System.Drawing.Size(76, 33);
             this.label1.TabIndex = 4;
             this.label1.Text = "URL";
             // 
             // urlTextbox
             // 
             this.urlTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.urlTextbox.Location = new System.Drawing.Point(65, 6);
+            this.urlTextbox.Location = new System.Drawing.Point(98, 9);
+            this.urlTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.urlTextbox.Name = "urlTextbox";
             this.urlTextbox.ReadOnly = true;
-            this.urlTextbox.Size = new System.Drawing.Size(456, 79);
+            this.urlTextbox.Size = new System.Drawing.Size(682, 119);
             this.urlTextbox.TabIndex = 5;
             this.urlTextbox.Text = "";
             // 
             // fileSizeTextbox
             // 
-            this.fileSizeTextbox.Location = new System.Drawing.Point(84, 27);
+            this.fileSizeTextbox.Location = new System.Drawing.Point(126, 42);
+            this.fileSizeTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fileSizeTextbox.Name = "fileSizeTextbox";
             this.fileSizeTextbox.ReadOnly = true;
-            this.fileSizeTextbox.Size = new System.Drawing.Size(287, 20);
+            this.fileSizeTextbox.Size = new System.Drawing.Size(428, 26);
             this.fileSizeTextbox.TabIndex = 6;
             // 
             // savePathTextbox
             // 
-            this.savePathTextbox.Location = new System.Drawing.Point(84, 56);
+            this.savePathTextbox.Location = new System.Drawing.Point(126, 86);
+            this.savePathTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.savePathTextbox.Name = "savePathTextbox";
-            this.savePathTextbox.Size = new System.Drawing.Size(287, 20);
+            this.savePathTextbox.Size = new System.Drawing.Size(428, 26);
             this.savePathTextbox.TabIndex = 7;
             // 
             // choseFolderButton
             // 
-            this.choseFolderButton.Location = new System.Drawing.Point(385, 53);
+            this.choseFolderButton.Location = new System.Drawing.Point(578, 82);
+            this.choseFolderButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.choseFolderButton.Name = "choseFolderButton";
-            this.choseFolderButton.Size = new System.Drawing.Size(82, 23);
+            this.choseFolderButton.Size = new System.Drawing.Size(123, 35);
             this.choseFolderButton.TabIndex = 8;
             this.choseFolderButton.Text = "Choose folder";
             this.choseFolderButton.UseVisualStyleBackColor = true;
@@ -130,29 +140,32 @@
             // 
             this.fileNameLabel.AutoSize = true;
             this.fileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fileNameLabel.Location = new System.Drawing.Point(5, 85);
+            this.fileNameLabel.Location = new System.Drawing.Point(8, 131);
+            this.fileNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fileNameLabel.Name = "fileNameLabel";
-            this.fileNameLabel.Size = new System.Drawing.Size(75, 16);
+            this.fileNameLabel.Size = new System.Drawing.Size(106, 25);
             this.fileNameLabel.TabIndex = 10;
             this.fileNameLabel.Text = "File name";
             // 
             // fileNameTextbox
             // 
-            this.fileNameTextbox.Location = new System.Drawing.Point(84, 84);
+            this.fileNameTextbox.Location = new System.Drawing.Point(126, 129);
+            this.fileNameTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fileNameTextbox.Name = "fileNameTextbox";
-            this.fileNameTextbox.Size = new System.Drawing.Size(287, 20);
+            this.fileNameTextbox.Size = new System.Drawing.Size(428, 26);
             this.fileNameTextbox.TabIndex = 11;
             // 
             // numericUpDown
             // 
-            this.numericUpDown.Location = new System.Drawing.Point(157, 77);
+            this.numericUpDown.Location = new System.Drawing.Point(236, 118);
+            this.numericUpDown.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDown.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
             this.numericUpDown.Name = "numericUpDown";
-            this.numericUpDown.Size = new System.Drawing.Size(53, 20);
+            this.numericUpDown.Size = new System.Drawing.Size(80, 26);
             this.numericUpDown.TabIndex = 12;
             this.numericUpDown.Value = new decimal(new int[] {
             2,
@@ -164,14 +177,18 @@
             // 
             this.groupBox1.Controls.Add(this.fileSizeTextbox);
             this.groupBox1.Controls.Add(this.fileSizeLabel);
+            this.groupBox1.Controls.Add(this.fileTypeTextBox);
             this.groupBox1.Controls.Add(this.fileNameTextbox);
             this.groupBox1.Controls.Add(this.savePathLabel);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.fileNameLabel);
             this.groupBox1.Controls.Add(this.choseFolderButton);
             this.groupBox1.Controls.Add(this.savePathTextbox);
-            this.groupBox1.Location = new System.Drawing.Point(13, 90);
+            this.groupBox1.Location = new System.Drawing.Point(20, 138);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(507, 111);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(760, 218);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Information";
@@ -179,9 +196,10 @@
             // cancelButton
             // 
             this.cancelButton.BackColor = System.Drawing.Color.Crimson;
-            this.cancelButton.Location = new System.Drawing.Point(108, 338);
+            this.cancelButton.Location = new System.Drawing.Point(162, 545);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(115, 34);
+            this.cancelButton.Size = new System.Drawing.Size(172, 52);
             this.cancelButton.TabIndex = 14;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
@@ -189,9 +207,10 @@
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(375, 338);
+            this.confirmButton.Location = new System.Drawing.Point(464, 545);
+            this.confirmButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(115, 34);
+            this.confirmButton.Size = new System.Drawing.Size(172, 52);
             this.confirmButton.TabIndex = 15;
             this.confirmButton.Text = "OK";
             this.confirmButton.UseVisualStyleBackColor = true;
@@ -203,11 +222,9 @@
             this.groupBox2.Controls.Add(this.singleStreamRadio);
             this.groupBox2.Controls.Add(this.numericUpDown);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(13, 207);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Location = new System.Drawing.Point(20, 358);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(507, 114);
+            this.groupBox2.Size = new System.Drawing.Size(760, 175);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Download option";
@@ -217,10 +234,9 @@
             this.multiThreadRadio.AutoSize = true;
             this.multiThreadRadio.Checked = true;
             this.multiThreadRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.multiThreadRadio.Location = new System.Drawing.Point(9, 50);
-            this.multiThreadRadio.Margin = new System.Windows.Forms.Padding(2);
+            this.multiThreadRadio.Location = new System.Drawing.Point(14, 77);
             this.multiThreadRadio.Name = "multiThreadRadio";
-            this.multiThreadRadio.Size = new System.Drawing.Size(184, 20);
+            this.multiThreadRadio.Size = new System.Drawing.Size(259, 29);
             this.multiThreadRadio.TabIndex = 14;
             this.multiThreadRadio.TabStop = true;
             this.multiThreadRadio.Text = "Multi Thread Download";
@@ -231,26 +247,46 @@
             // 
             this.singleStreamRadio.AutoSize = true;
             this.singleStreamRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.singleStreamRadio.Location = new System.Drawing.Point(9, 16);
-            this.singleStreamRadio.Margin = new System.Windows.Forms.Padding(2);
+            this.singleStreamRadio.Location = new System.Drawing.Point(14, 25);
             this.singleStreamRadio.Name = "singleStreamRadio";
-            this.singleStreamRadio.Size = new System.Drawing.Size(195, 20);
+            this.singleStreamRadio.Size = new System.Drawing.Size(274, 29);
             this.singleStreamRadio.TabIndex = 13;
             this.singleStreamRadio.Text = "Single Stream Download";
             this.singleStreamRadio.UseVisualStyleBackColor = true;
             this.singleStreamRadio.CheckedChanged += new System.EventHandler(this.singleStreamRadio_CheckedChanged);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(8, 175);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 25);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "File type";
+            // 
+            // fileTypeTextBox
+            // 
+            this.fileTypeTextBox.Location = new System.Drawing.Point(126, 173);
+            this.fileTypeTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fileTypeTextBox.Name = "fileTypeTextBox";
+            this.fileTypeTextBox.ReadOnly = true;
+            this.fileTypeTextBox.Size = new System.Drawing.Size(428, 26);
+            this.fileTypeTextBox.TabIndex = 11;
+            // 
             // DownloadSettingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 394);
+            this.ClientSize = new System.Drawing.Size(808, 606);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.urlTextbox);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DownloadSettingForm";
             this.Text = "SettingDownloadForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadSettingForm_FormClosing);
@@ -285,5 +321,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton multiThreadRadio;
         private System.Windows.Forms.RadioButton singleStreamRadio;
+        private System.Windows.Forms.TextBox fileTypeTextBox;
+        private System.Windows.Forms.Label label2;
     }
 }

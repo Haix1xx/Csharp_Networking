@@ -13,7 +13,7 @@ namespace MultiThreadDownloader.DTO
         public DateTime startTime { get; set; }
         public DateTime endTime { get; set; }
         public bool isComplete { get; set; }
-        public long maxSpeed { get; set; }
+        //public long maxSpeed { get; set; }
         public long averageSpeed 
         { 
             get

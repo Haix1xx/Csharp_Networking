@@ -30,11 +30,9 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.totalTime = new System.Windows.Forms.TextBox();
             this.downloadedSize = new System.Windows.Forms.TextBox();
-            this.maxSpeed = new System.Windows.Forms.TextBox();
             this.averageSpeed = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.isComplete = new System.Windows.Forms.TextBox();
@@ -58,19 +56,10 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Downloaded size:";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(39, 173);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 20);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Max bandwidth:";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(39, 221);
+            this.label4.Location = new System.Drawing.Point(39, 174);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(149, 20);
             this.label4.TabIndex = 0;
@@ -92,17 +81,9 @@
             this.downloadedSize.Size = new System.Drawing.Size(404, 26);
             this.downloadedSize.TabIndex = 1;
             // 
-            // maxSpeed
-            // 
-            this.maxSpeed.Location = new System.Drawing.Point(211, 170);
-            this.maxSpeed.Name = "maxSpeed";
-            this.maxSpeed.ReadOnly = true;
-            this.maxSpeed.Size = new System.Drawing.Size(404, 26);
-            this.maxSpeed.TabIndex = 1;
-            // 
             // averageSpeed
             // 
-            this.averageSpeed.Location = new System.Drawing.Point(211, 218);
+            this.averageSpeed.Location = new System.Drawing.Point(211, 171);
             this.averageSpeed.Name = "averageSpeed";
             this.averageSpeed.ReadOnly = true;
             this.averageSpeed.Size = new System.Drawing.Size(404, 26);
@@ -129,14 +110,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 276);
+            this.ClientSize = new System.Drawing.Size(660, 222);
             this.Controls.Add(this.averageSpeed);
-            this.Controls.Add(this.maxSpeed);
             this.Controls.Add(this.downloadedSize);
             this.Controls.Add(this.isComplete);
             this.Controls.Add(this.totalTime);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -151,11 +130,9 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox totalTime;
         private System.Windows.Forms.TextBox downloadedSize;
-        private System.Windows.Forms.TextBox maxSpeed;
         private System.Windows.Forms.TextBox averageSpeed;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox isComplete;

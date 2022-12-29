@@ -46,6 +46,7 @@ namespace MultiThreadDownloader
                 progressBar.Maximum = (int)downloadG.Ranges.Last().Ranges.FirstOrDefault().To;
                 var progress = new Progress<int>(ReportProgress);
                 this.download.Progress = progress;
+                this.detailButton.Visible = false;
             }
             else if(download is MultiThreadDownload)
             {
@@ -61,7 +62,7 @@ namespace MultiThreadDownloader
                 this.sizeTextbox.Text = BLLConverter.FileSizeToString(downloadM.Ranges.Last().End+1);
                 progressBar.Maximum = (int)downloadM.Ranges.Last().End;
                 var progress = new Progress<int>(ReportProgress);
-                this.downloadM.Progress = progress;
+                downloadM.Progress = progress;
             }
 
         }
@@ -109,7 +110,7 @@ namespace MultiThreadDownloader
 
         private void detailButton_Click(object sender, EventArgs e)
         {
-            DataTable reports = BLLDownloadProcessing.GetMultiThreadReport(download.reports);
+            DataTable reports = BLLDownloadProcessing.GetMultiThreadReport((download as MultiThreadDownload).reports);
             MultiThreadReport form = new MultiThreadReport(totalTime, reports);
             form.ShowDialog();
         }

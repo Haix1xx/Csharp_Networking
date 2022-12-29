@@ -136,7 +136,7 @@ namespace MultiThreadDownloader.DTO
                     await streamWrite.WriteAsync(buffer, 0, numberByteRead);
                     // Report tiến độ cho UI progress bar & DownloadReport
                     reports[key].downloadedSize += numberByteRead;
-                    progress?.Report(numberByteRead);
+                    Progress?.Report(numberByteRead);
                 }
             }
             while (numberByteRead > 0);

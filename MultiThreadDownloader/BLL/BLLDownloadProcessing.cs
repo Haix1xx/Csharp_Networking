@@ -35,7 +35,7 @@ namespace MultiThreadDownloader.BLL
             {
                 new DataColumn {ColumnName = "Thread ID", DataType = typeof(string)},
                 new DataColumn {ColumnName = "Downloaded", DataType = typeof(string)},
-                new DataColumn {ColumnName = "Total Time", DataType = typeof(string)},
+                new DataColumn {ColumnName = "Download Time", DataType = typeof(string)},
                 new DataColumn {ColumnName = "Average Speed", DataType = typeof(string)},
                 new DataColumn {ColumnName = "Is Completed", DataType = typeof(bool)}
             });

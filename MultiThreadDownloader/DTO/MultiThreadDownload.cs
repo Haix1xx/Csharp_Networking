@@ -87,7 +87,7 @@ namespace MultiThreadDownloader.DTO
         // Hàm tải từng phần của 1 file
         private async Task PartialDownload(string url, Range range)
         {
-            var httpClient = new HttpClient();
+            //var httpClient = new HttpClient();
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Get;
             request.RequestUri = new Uri(url);

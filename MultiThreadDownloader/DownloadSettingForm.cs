@@ -32,10 +32,12 @@ namespace MultiThreadDownloader
             fileSizeTextbox.Text = "Getting file length...";
             try
             {
-                this.fileSize = await BLLDownloadSetting.GetFileLength(this.url);
-                //fileSizeTextbox.Text = fileSize.ToString();
+                //this.fileSize = await BLLDownloadSetting.GetFileLength(this.url);
+                //this.fileType = await BLLDownloadSetting.GetFileType(this.url);
+                var fileInfo = await BLLDownloadSetting.GetFileInfo(this.url);
+                this.fileSize = long.Parse(fileInfo[0]);
+                this.fileType = fileInfo[1];
                 fileSizeTextbox.Text = BLLConverter.FileSizeToString(fileSize);
-                this.fileType = await BLLDownloadSetting.GetFileType(this.url);
                 fileTypeTextBox.Text = fileType;
                 confirmButton.Enabled = true;
             }

@@ -9,7 +9,48 @@ namespace MultiThreadDownloader.BLL
 {
     public class BLLDownloadSetting
     {
-        public static async Task<long> GetFileLength(string url)
+        //public static async Task<long> GetFileLength(string url)
+        //{
+        //    try
+        //    {
+        //        var httpClient = new HttpClient();
+        //        // Chỉ rõ nội dung của HTTP request: gửi về chỉ phần Header, trong đó chứa kích cỡ file cần tải
+        //        var request = new HttpRequestMessage();
+        //        request.Method = HttpMethod.Head;
+        //        request.RequestUri = new Uri(url);
+        //        // Gửi HTTP request
+        //        var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+        //        // Lấy kích cỡ file, nằm ở phần Content-Length
+        //        var result = response.Content.Headers.GetValues("Content-Length");
+        //        return long.Parse(result.FirstOrDefault());
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception("Failed to get file length");
+        //    }
+        //}
+        //public static async Task<string> GetFileType(string url)
+        //{
+        //    try
+        //    {
+        //        var httpClient = new HttpClient();
+        //        // Chỉ rõ nội dung của HTTP request: gửi về chỉ phần Header, trong đó chứa kích cỡ file cần tải
+        //        var request = new HttpRequestMessage();
+        //        request.Method = HttpMethod.Head;
+        //        request.RequestUri = new Uri(url);
+        //        // Gửi HTTP request
+        //        var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+        //        // Lấy kích cỡ file, nằm ở phần Content-Length
+        //        var result = response.Content.Headers.GetValues("Content-Type").First();
+        //        return result.Split(';')[0].Split('/')[1];
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception("Failed to get file type");
+        //    }
+        //}
+
+        public static async Task<string[]> GetFileInfo(string url)
         {
             try
             {
@@ -21,32 +62,13 @@ namespace MultiThreadDownloader.BLL
                 // Gửi HTTP request
                 var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
                 // Lấy kích cỡ file, nằm ở phần Content-Length
-                var result = response.Content.Headers.GetValues("Content-Length");
-                return long.Parse(result.FirstOrDefault());
+                string fileLength = response.Content.Headers.GetValues("Content-Length").FirstOrDefault();
+                string fileType = response.Content.Headers.GetValues("Content-Type").FirstOrDefault().Split(';')[0].Split('/')[1];
+                return new string[] { fileLength, fileType };
             }
             catch (Exception e)
             {
                 throw new Exception("Failed to get file length");
-            }
-        }
-        public static async Task<string> GetFileType(string url)
-        {
-            try
-            {
-                var httpClient = new HttpClient();
-                // Chỉ rõ nội dung của HTTP request: gửi về chỉ phần Header, trong đó chứa kích cỡ file cần tải
-                var request = new HttpRequestMessage();
-                request.Method = HttpMethod.Head;
-                request.RequestUri = new Uri(url);
-                // Gửi HTTP request
-                var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-                // Lấy kích cỡ file, nằm ở phần Content-Length
-                var result = response.Content.Headers.GetValues("Content-Type").First();
-                return result.Split(';')[0].Split('/')[1];
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Failed to get file type");
             }
         }
         public static List<Range> CalculateRange(long contentLength, int totalThread)

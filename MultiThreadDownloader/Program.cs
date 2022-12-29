@@ -16,7 +16,7 @@ namespace MultiThreadDownloader
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new URLForm());
+            Application.Run(new MainForm());
         }
     }
 }

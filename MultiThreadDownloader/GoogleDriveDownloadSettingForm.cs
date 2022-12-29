@@ -1,54 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http.Headers;
-using System.Windows.Forms;
-using Google.Apis.Drive.v3;
+﻿using Google.Apis.Drive.v3;
 using Google.Apis.Http;
 using MultiThreadDownloader.BLL;
 using MultiThreadDownloader.DTO;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 namespace MultiThreadDownloader
 {
-    public partial class DownloadSettingForm : Form
+    public partial class GoogleDriveDownloadSettingForm : Form
     {
         private string url;
         private long fileSize;
-        private string fileType;
         public delegate void InvokeForm();
         public InvokeForm Back { get; set; }
         public InvokeForm CloseForm { get; set; }
         public ConfigurableHttpClient httpClient = null;
         public DriveService Service = null;
-        public DownloadSettingForm()
+        public GoogleDriveDownloadSettingForm()
         {
             InitializeComponent();
         }
-        public DownloadSettingForm(string url)
-        {
-            InitializeComponent();
-            this.url = url;            
-        }
-        public DownloadSettingForm(string url, DriveService Service)
+        public GoogleDriveDownloadSettingForm(string url, DriveService Service)
         {
             InitializeComponent();
             this.url = url;
-            this.Service = Service; 
+            this.Service = Service;
         }
         private async void DownloadSettingForm_Load(object sender, EventArgs e)
         {
             confirmButton.Enabled = false;
             numericUpDown.Value = 4;
             urlTextbox.Text = this.url;
-            fileSizeTextbox.Text = "Getting file info...";
+            fileSizeTextbox.Text = "Getting file length...";
             try
             {
-                //this.fileSize = await BLLDownloadSetting.GetFileLength(this.url);
-                //this.fileType = await BLLDownloadSetting.GetFileType(this.url);
-                var fileInfo = await BLLDownloadSetting.GetFileInfo(this.url);
-                this.fileSize = long.Parse(fileInfo[0]);
-                this.fileType = fileInfo[1];
+                string[] response = await BLLDownloadSetting.GetFileLength(this.url, this.Service);
+                this.fileSize = long.Parse(response[0]);
+                fileNameTextbox.Text = response[1];                
                 fileSizeTextbox.Text = BLLConverter.FileSizeToString(fileSize);
-                fileTypeTextBox.Text = fileType;
                 confirmButton.Enabled = true;
             }
             catch (Exception ex)
@@ -78,20 +76,23 @@ namespace MultiThreadDownloader
                 savePathTextbox.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-        private void confirmButton_Click(object sender, EventArgs e)
+        private async void confirmButton_Click(object sender, EventArgs e)
         {
             string filePath = savePathTextbox.Text;
             if (Directory.Exists(filePath))
             {
                 if (fileNameTextbox.Text != "")
                 {
-                    filePath += "\\" + fileNameTextbox.Text + "." + fileType;
+                    filePath += "\\" + fileNameTextbox.Text;
 
                     if (multiThreadRadio.Checked)
                     {
                         int totalThread = Convert.ToInt32(numericUpDown.Value);
-                        List<Range> readRanges = BLLDownloadSetting.CalculateRange(fileSize, totalThread);
-                        Download download = new MultiThreadDownload(url, filePath, readRanges)
+                        //List<Range> readRanges = BLLDownloadSetting.CalculateRange(fileSize, totalThread);
+                        List<RangeHeaderValue> ranges = BLLDownloadSetting.CalculateRangeHeaderValue(fileSize, totalThread);
+                        //Download download = new MultiThreadDownload(url, filePath, readRanges);
+                        var service = await GoogleDriverHelper.GetService();
+                        Download download = new GoogleDriveDownload(this.url, filePath, ranges, service)
                         {
                             FileSize = fileSize,
                         };
@@ -103,16 +104,13 @@ namespace MultiThreadDownloader
                     }
                     else if (singleStreamRadio.Checked)
                     {
-                        Download download = new SingleStreamDownload(url, filePath, fileSize)
-                        {
-                            FileSize = fileSize
-                        };
+                        Download download = new SingleStreamDownload(url, filePath, fileSize);
                         SingleStreamForm form = new SingleStreamForm(download);
                         form.BackForm = () => this.Show();
                         form.CloseForm = () => DisposeAllForm();
                         this.Hide();
                         form.ShowDialog();
-                    }    
+                    }
                 }
                 else
                 {

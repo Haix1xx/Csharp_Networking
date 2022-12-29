@@ -27,12 +27,12 @@ namespace MultiThreadDownloader
         }
         public void InitGUI()
         {
-            this.urlTextbox.Text = download.url;
-            this.filePathTextbox.Text = download.filePath;
+            this.urlTextbox.Text = download.Url;
+            this.filePathTextbox.Text = download.FilePath;
             this.sizeTextbox.Text = BLLConverter.FileSizeToString(download.fileLength);
             progressBar.Maximum = (int)download.fileLength;
             var progress = new Progress<int>(ReportProgress);
-            this.download.progress = progress;
+            this.download.Progress = progress;
         }
         public void ReportProgress(int value)
         {
@@ -40,12 +40,10 @@ namespace MultiThreadDownloader
             if (currentValue <= progressBar.Maximum)
             {
                 progressBar.Value = currentValue;
-                //textLabel.Text = currentValue.ToString();
             }
             else
             {
                 progressBar.Value = progressBar.Maximum;
-                //textLabel.Text = progressBar1.Maximum.ToString();
             }
 
         }

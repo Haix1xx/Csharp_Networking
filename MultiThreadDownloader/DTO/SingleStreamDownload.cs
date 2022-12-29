@@ -14,8 +14,8 @@ namespace MultiThreadDownloader.DTO
         public long fileLength { get; set; }
         public SingleStreamDownload(string url, string filePath, long fileLength)
         {
-            this.url = url;
-            this.filePath = filePath;
+            this.Url = url;
+            this.FilePath = filePath;
             this.fileLength = fileLength;
             this.report = new DownloadReport()
             {
@@ -33,7 +33,7 @@ namespace MultiThreadDownloader.DTO
             {
                 report.startTime = DateTime.Now;
                 // Gửi HTTP request, chờ phản hồi từ URL
-                var responseMessage = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+                var responseMessage = await httpClient.GetAsync(Url, HttpCompletionOption.ResponseHeadersRead);
                 // Đọc nội dung của HTTP response
                 var stream = await responseMessage.Content.ReadAsStreamAsync();
                 // Biến bộ nhớ đệm, khi đọc đủ kích thước bộ nhớ đệm thì sẽ ghi vào file, rồi tiếp tục đọc
@@ -42,7 +42,7 @@ namespace MultiThreadDownloader.DTO
                 
                 int numberByteRead = 0;
                 // Xác định file ghi
-                var streamWrite = File.OpenWrite(filePath);
+                var streamWrite = File.OpenWrite(FilePath);
                 // Vòng lặp đọc & ghi
                 do
                 {
@@ -52,7 +52,7 @@ namespace MultiThreadDownloader.DTO
                     await streamWrite.WriteAsync(buffer, 0, numberByteRead);
                     // Đếm số byte đã đọc
                     report.downloadedSize += numberByteRead;
-                    progress?.Report(numberByteRead);
+                    Progress?.Report(numberByteRead);
                 }
                 while (numberByteRead > 0);
                 streamWrite.Close();
@@ -63,7 +63,7 @@ namespace MultiThreadDownloader.DTO
             }
             catch (Exception)
             {
-                File.Delete(filePath);
+                File.Delete(FilePath);
                 // Ném thông báo lỗi
                 throw new Exception("Download failed");
             }

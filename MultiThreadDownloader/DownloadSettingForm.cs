@@ -99,7 +99,7 @@ namespace MultiThreadDownloader
                         form.BackForm = () => this.Show();
                         form.CloseForm = () => DisposeAllForm();
                         this.Hide();
-                        form.ShowDialog();
+                        form.Show();
                     }
                     else if (singleStreamRadio.Checked)
                     {
@@ -111,7 +111,7 @@ namespace MultiThreadDownloader
                         form.BackForm = () => this.Show();
                         form.CloseForm = () => DisposeAllForm();
                         this.Hide();
-                        form.ShowDialog();
+                        form.Show();
                     }    
                 }
                 else

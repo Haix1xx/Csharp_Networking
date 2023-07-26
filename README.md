@@ -8,7 +8,8 @@
 ## Giao diện
 
 ### Giao diện chính
-![image](https://github.com/Haix1xx/Csharp_Networking/assets/94236029/86f67e16-f5b1-4bdf-b780-49f9ad58223b)
+![image](https://github.com/Haix1xx/Csharp_Networking/assets/94236029/de0d6751-f3dd-4592-86c8-d5893d9364ba)
+
 
 ### Form nhập URL
 ![image](https://github.com/Haix1xx/Csharp_Networking/assets/94236029/33c6cade-b4b3-4577-83b4-34537ebee7d3)
